@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TheMovieApplication</string>
+    <string name="lbl_discover">Discover</string>
 </resources>

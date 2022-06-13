@@ -27,7 +27,6 @@
 <dimen name="text_heading_2x">32sp</dimen>
 <dimen name="text_big">40sp</dimen>
 <dimen name="text_big_2x">60sp</dimen>
-   
-<dimen name="text_big_3x">80 sp</dimen>
+<dimen name="text_big_3x">80sp</dimen>
 
 </resources>
