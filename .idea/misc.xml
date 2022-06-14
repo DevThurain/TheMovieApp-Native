@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable/banner_gradient.xml" value="0.198" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable/xxxhdpi.xml" value="0.1115" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/item_view_banner.xml" value="0.25" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/menu/menu_discover.xml" value="0.1875" />
       </map>
     </option>

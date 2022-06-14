@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBannerImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/the_boy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBannerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The Boys(2019)"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="@dimen/margin_medium_3"
+        android:layout_marginStart="@dimen/margin_card_medium_2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_heading_1x"
+        android:textStyle="bold"
+        android:elevation="@dimen/margin_small"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="@dimen/margin_xxlarge"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_centerInParent="true"
+        app:iconPadding="0dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:icon="@drawable/ic_baseline_play_arrow_black_24"
+        android:backgroundTint="@color/colorAccent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_banner" />
+
+</RelativeLayout>
