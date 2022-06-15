@@ -27,13 +27,57 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerBanner"
+        <FrameLayout
+            android:id="@+id/flBanner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_banner"
+            android:layout_height="250dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerBanner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_banner" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotsIndicatorBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_medium"
+                app:dotsColor="@color/lightGrey"
+                app:dotsSize="@dimen/margin_medium"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="1.0"
+                app:selectedDotColor="@color/colorAccent"
+                android:layout_gravity="bottom|center"
+                />
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBestPopularMovieAndSerials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flBanner"
+            android:layout_marginTop="@dimen/margin_medium_3"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_best_popular_movie_and_serials"
+            android:textColor="@color/colorSecondaryText"
+            android:textStyle="bold"
+            android:textAllCaps="true" />
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBestPopularMovieAndSerials"
+            android:layout_marginTop="@dimen/margin_medium_3"
+            layout="@layout/viewpod_movie_list"
+
             />
 
 
+
+
     </RelativeLayout>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

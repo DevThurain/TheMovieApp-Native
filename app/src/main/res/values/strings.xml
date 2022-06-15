@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TheMovieApplication</string>
     <string name="lbl_discover">Discover</string>
+    <string name="lbl_best_popular_movie_and_serials">best popular movies and serials</string>
 </resources>

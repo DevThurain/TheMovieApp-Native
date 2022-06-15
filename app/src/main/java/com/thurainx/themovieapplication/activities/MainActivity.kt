@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBar()
         setupBannerViewPager()
+        setupBannerDotIndicator()
 
     }
 
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupBannerViewPager(){
         mBannerAdapter = BannerAdapter()
         viewPagerBanner.adapter = mBannerAdapter
+    }
+
+    private fun setupBannerDotIndicator(){
+        dotsIndicatorBanner.attachTo(viewPagerBanner)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

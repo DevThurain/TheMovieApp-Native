@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width_movie_item"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_medium_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMovieCover"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_movie_image"
+        app:srcCompat="@drawable/the_boy_vertical"
+        android:scaleType="centerCrop"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivMovieCover"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="The Boys"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_2x" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rbMovieRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8.60"
+        android:layout_below="@id/tvMovieName"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:textSize="@dimen/text_regular"
+        android:textColor="@color/white"
+        />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMovieName"
+        android:layout_toEndOf="@id/rbMovieRating"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:rating="5"
+        android:progressTint="@color/colorAccent"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        />
+
+</RelativeLayout>

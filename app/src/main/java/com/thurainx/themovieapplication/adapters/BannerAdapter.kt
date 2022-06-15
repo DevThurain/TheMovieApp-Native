@@ -8,7 +8,7 @@ import com.thurainx.themovieapplication.viewholders.BannerViewHolder
 
 class BannerAdapter : RecyclerView.Adapter<BannerViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_view_banner,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_item_banner,parent,false)
 
         return BannerViewHolder(view)
     }
@@ -18,6 +18,6 @@ class BannerAdapter : RecyclerView.Adapter<BannerViewHolder>(){
     }
 
     override fun getItemCount(): Int {
-       return 10
+       return 4
     }
 }

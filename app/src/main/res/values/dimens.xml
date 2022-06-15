@@ -29,5 +29,7 @@
 <dimen name="text_big_2x">60sp</dimen>
 <dimen name="text_big_3x">80sp</dimen>
     <dimen name="height_banner">250dp</dimen>
+    <dimen name="width_movie_item">120dp</dimen>
+    <dimen name="height_movie_image">160dp</dimen>
 
 </resources>
