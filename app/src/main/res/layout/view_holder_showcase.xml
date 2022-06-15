@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width_showcase_item"
+    android:layout_height="@dimen/height_showcase_item"
+    android:layout_marginStart="@dimen/margin_medium_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/the_boy"
+        android:scaleType="centerCrop"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:elevation="@dimen/margin_medium">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="@dimen/margin_xxlarge"
+            android:layout_height="@dimen/margin_xxlarge"
+            android:elevation="12dp"
+            app:iconPadding="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:insetTop="0dp"
+            app:icon="@drawable/ic_baseline_play_arrow_black_24"
+            android:backgroundTint="@color/colorAccent" />
+
+    </FrameLayout>
+
+
+
+    <TextView
+        android:id="@+id/tvShowcaseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:text="The Boys(2019)"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_2x"
+        android:layout_above="@+id/tvShowcaseDate"
+        android:elevation="@dimen/margin_medium"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tvShowcaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:elevation="@dimen/margin_medium"
+        android:text="16 December 2019"
+        android:textStyle="bold"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#26000000"
+        android:elevation="@dimen/margin_small" />
+
+</RelativeLayout>

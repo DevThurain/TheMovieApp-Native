@@ -28,8 +28,12 @@
 <dimen name="text_big">40sp</dimen>
 <dimen name="text_big_2x">60sp</dimen>
 <dimen name="text_big_3x">80sp</dimen>
+
+    <!--    App Specific -->
     <dimen name="height_banner">250dp</dimen>
     <dimen name="width_movie_item">120dp</dimen>
     <dimen name="height_movie_image">160dp</dimen>
+    <dimen name="width_showcase_item">240dp</dimen>
+    <dimen name="height_showcase_item">170dp</dimen>
 
 </resources>

@@ -2,4 +2,8 @@
     <string name="app_name">TheMovieApplication</string>
     <string name="lbl_discover">Discover</string>
     <string name="lbl_best_popular_movie_and_serials">best popular movies and serials</string>
+    <string name="lbl_check_movie_show_time">Check Movie\nShow Time</string>
+    <string name="lbl_see_more"><u>SEE MORE</u></string>
+    <string name="lbl_showcases">Showcases</string>
+    <string name="lbl_more_showcases"><u>MORE SHOWCASES</u></string>
 </resources>

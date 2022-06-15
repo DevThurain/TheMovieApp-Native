@@ -21,62 +21,182 @@
            android:layout_height="match_parent"/>
    </com.google.android.material.appbar.AppBarLayout>
 
-
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/flBanner"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPagerBanner"
+            <FrameLayout
+                android:id="@+id/flBanner"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_banner" />
+                android:layout_height="250dp">
 
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:id="@+id/dotsIndicatorBanner"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_banner" />
+
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/dotsIndicatorBanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_medium"
+                    app:dotsColor="@color/lightGrey"
+                    app:dotsSize="@dimen/margin_medium"
+                    app:dotsSpacing="4dp"
+                    app:dotsWidthFactor="1.0"
+                    app:selectedDotColor="@color/colorAccent"
+                    android:layout_gravity="bottom|center"
+                    />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBestPopularMovieAndSerials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_medium"
-                app:dotsColor="@color/lightGrey"
-                app:dotsSize="@dimen/margin_medium"
-                app:dotsSpacing="4dp"
-                app:dotsWidthFactor="1.0"
-                app:selectedDotColor="@color/colorAccent"
-                android:layout_gravity="bottom|center"
+                android:layout_below="@+id/flBanner"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:text="@string/lbl_best_popular_movie_and_serials"
+                android:textColor="@color/colorSecondaryText"
+                android:textStyle="bold"
+                android:textAllCaps="true" />
+
+            <include
+                android:id="@+id/vpMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBestPopularMovieAndSerials"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                layout="@layout/viewpod_movie_list"
                 />
 
-        </FrameLayout>
+            <RelativeLayout
+                android:id="@+id/rlCheckMovieShowTime"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/vpMovieList"
+                android:layout_marginHorizontal="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:background="@color/colorPrimaryLight">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBestPopularMovieAndSerials"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/flBanner"
-            android:layout_marginTop="@dimen/margin_medium_3"
-            android:layout_marginStart="@dimen/margin_medium_2"
-            android:text="@string/lbl_best_popular_movie_and_serials"
-            android:textColor="@color/colorSecondaryText"
-            android:textStyle="bold"
-            android:textAllCaps="true" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCheckMovieShowTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_medium_3"
+                    android:text="@string/lbl_check_movie_show_time"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_heading_1x"
+                    android:textStyle="bold" />
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvBestPopularMovieAndSerials"
-            android:layout_marginTop="@dimen/margin_medium_3"
-            layout="@layout/viewpod_movie_list"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/margin_medium_3"
+                    android:text="@string/lbl_see_more"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_regular_2x" />
 
-            />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/margin_xxlarge"
+                    android:layout_height="@dimen/margin_xxlarge"
+                    android:src="@drawable/ic_baseline_location"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    />
+
+            </RelativeLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutGeneres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlCheckMovieShowTime"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:background="@color/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/colorSecondaryText" />
+
+            <FrameLayout
+                android:id="@+id/flGenresMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layout_below="@id/tabLayoutGeneres"
+                android:paddingTop="@dimen/margin_medium_3"
+                android:paddingBottom="@dimen/margin_medium_2"
+                >
+
+                <include
+                    android:id="@+id/genresMovieList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/viewpod_movie_list"
+                    />
+
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlShowCase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/flGenresMovieList"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShowcase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_showcases"
+                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textAllCaps="true"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_more_showcases"
+                    android:layout_marginEnd="@dimen/margin_medium_2"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/white"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvShowcase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/margin_medium_2"
+                    android:layout_below="@id/tvShowcase"
+                    android:layout_marginTop="@dimen/margin_medium_3"
+                    android:clipToPadding="false"
+                    tools:listitem="@layout/view_holder_showcase"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    />
 
 
 
+            </RelativeLayout>
 
-    </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 
 
