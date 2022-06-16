@@ -9,4 +9,13 @@
     <string name="lbl_storyline">StoryLine</string>
     <string name="lbl_play_trailer">Play Trailer</string>
     <string name="lbl_rate_movie">rate movie</string>
+    <string name="lbl_actors">Actors</string>
+    <string name="lbl_creators">creators</string>
+    <string name="lbl_more_creators">MORE CREATORS</string>
+    <string name="lbl_about_film">About Film</string>
+    <string name="lbl_type">Type</string>
+    <string name="lbl_original_title">Original Title</string>
+    <string name="lbl_production">Production</string>
+    <string name="lbl_permier">Premier</string>
+    <string name="lbl_description">Description</string>
 </resources>

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable-xxxhdpi/background_back_button.xml" value="0.1885" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable-xxxhdpi/background_genere.xml" value="0.1885" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable-xxxhdpi/background_play_trailer.xml" value="0.1885" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable-xxxhdpi/background_rate_movie.xml" value="0.1885" />
@@ -16,7 +17,7 @@
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable/ic_baseline_play_arrow_black_24dp.xml" value="0.1885" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/drawable/xxxhdpi.xml" value="0.1115" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/activity_movie_detail.xml" value="0.4" />
+        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/activity_movie_detail.xml" value="0.17524916943521596" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/item_view_banner.xml" value="0.25" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/view_holder_movie.xml" value="0.536" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/view_holder_person.xml" value="0.536" />
@@ -24,6 +25,7 @@
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/view_item_banner.xml" value="0.24592391304347827" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/viewpod_actor_list.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/viewpod_movie_list.xml" value="0.24592391304347827" />
+        <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/layout/viewpod_person_list.xml" value="0.14990942028985507" />
         <entry key="..\:/Users/thura/AndroidStudioProjects/TheMovieApplication/app/src/main/res/menu/menu_discover.xml" value="0.1875" />
       </map>
     </option>
