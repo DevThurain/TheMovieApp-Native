@@ -68,7 +68,7 @@
                 android:textAllCaps="true" />
 
             <include
-                android:id="@+id/vpMovieList"
+                android:id="@+id/vpBestAndPopularMovieList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvBestPopularMovieAndSerials"
@@ -80,7 +80,7 @@
                 android:id="@+id/rlCheckMovieShowTime"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_below="@id/vpMovieList"
+                android:layout_below="@id/vpBestAndPopularMovieList"
                 android:layout_marginHorizontal="@dimen/margin_medium_2"
                 android:layout_marginTop="@dimen/margin_medium_3"
                 android:background="@color/colorPrimaryLight">
@@ -138,7 +138,7 @@
                 >
 
                 <include
-                    android:id="@+id/genresMovieList"
+                    android:id="@+id/vpGenresMovieList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/viewpod_movie_list"
@@ -153,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/flGenresMovieList"
                 android:layout_marginTop="@dimen/margin_medium_3"
+                android:layout_marginBottom="@dimen/margin_medium_3"
                 >
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -179,16 +180,20 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/margin_medium_2"
                     android:layout_below="@id/tvShowcase"
-                    android:layout_marginTop="@dimen/margin_medium_3"
+                    android:layout_marginTop="@dimen/margin_card_medium_2"
                     android:clipToPadding="false"
                     tools:listitem="@layout/view_holder_showcase"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     />
 
-
-
             </RelativeLayout>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlShowCase"
+                layout="@layout/viewpod_person_list"/>
 
 
         </RelativeLayout>

@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/the_boy"
+        app:srcCompat="@drawable/placeholder_movie"
         android:scaleType="centerCrop"/>
 
     <FrameLayout
@@ -27,7 +27,7 @@
             android:insetLeft="0dp"
             android:insetRight="0dp"
             android:insetTop="0dp"
-            app:icon="@drawable/ic_baseline_play_arrow_black_24"
+            app:icon="@drawable/ic_baseline_play_arrow_black_24dp"
             android:backgroundTint="@color/colorAccent" />
 
     </FrameLayout>

@@ -35,5 +35,7 @@
     <dimen name="height_movie_image">160dp</dimen>
     <dimen name="width_showcase_item">240dp</dimen>
     <dimen name="height_showcase_item">170dp</dimen>
+    <dimen name="width_person">150dp</dimen>
+    <dimen name="height_person">180dp</dimen>
 
 </resources>

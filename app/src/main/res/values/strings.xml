@@ -6,4 +6,7 @@
     <string name="lbl_see_more"><u>SEE MORE</u></string>
     <string name="lbl_showcases">Showcases</string>
     <string name="lbl_more_showcases"><u>MORE SHOWCASES</u></string>
+    <string name="lbl_storyline">StoryLine</string>
+    <string name="lbl_play_trailer">Play Trailer</string>
+    <string name="lbl_rate_movie">rate movie</string>
 </resources>

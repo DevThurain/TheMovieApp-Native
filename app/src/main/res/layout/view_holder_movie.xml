@@ -9,7 +9,7 @@
         android:id="@+id/ivMovieCover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_movie_image"
-        app:srcCompat="@drawable/the_boy_vertical"
+        app:srcCompat="@drawable/placeholder_movie_vertical"
         android:scaleType="centerCrop"
         />
 

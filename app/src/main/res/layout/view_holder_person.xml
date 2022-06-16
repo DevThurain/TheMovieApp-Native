@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width_person"
+    android:layout_height="@dimen/height_person"
+    android:layout_marginStart="@dimen/margin_medium_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMovieCover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/placeholder_actor" />
+
+    <CheckBox
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="@dimen/margin_xlarge"
+        android:layout_height="@dimen/margin_xlarge"
+        android:layout_alignParentEnd="true"
+        android:button="@drawable/ic_baseline_favorite_24dp"
+        android:buttonTint="@color/colorAccent"
+        android:padding="0dp"
+        app:iconTint="@color/colorAccent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPersonLike"
+        android:layout_width="@dimen/margin_medium_2"
+        android:layout_height="@dimen/margin_medium_2"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_card_medium_2"
+        android:layout_marginBottom="@dimen/margin_card_medium_2"
+        app:srcCompat="@drawable/ic_baseline_thumb_up_24dp"
+        android:tint="@color/colorAccent"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_alignBottom="@id/ivPersonLike"
+        android:layout_toRightOf="@id/ivPersonLike"
+        android:text="You Like 15 movie"
+        android:elevation="@dimen/margin_medium"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_small"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_card_medium_2"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_above="@id/ivPersonLike"
+        android:text="Antony Starr"
+        android:elevation="@dimen/margin_medium"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_regular"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="@dimen/margin_small"
+        android:background="@drawable/gradient_person"
+        />
+
+
+</RelativeLayout>
