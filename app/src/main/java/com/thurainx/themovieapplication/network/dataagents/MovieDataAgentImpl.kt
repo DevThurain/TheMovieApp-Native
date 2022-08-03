@@ -4,6 +4,9 @@ import android.os.AsyncTask
 import android.util.Log
 import com.google.gson.Gson
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
+import com.thurainx.themovieapplication.utils.BASED_URL
+import com.thurainx.themovieapplication.utils.MOVIE_API_KEY
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.Exception
@@ -11,12 +14,10 @@ import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 
-val BASED_URL = "https://api.themoviedb.org/3"
-val API_GET_NOW_PLAYING = "/movie/now_playing"
-val MOVIE_API_KEY = "a86e2ebff9ae95b6e167546fae5fd636"
+
 class MovieDataAgentImpl : MovieDataAgent() {
     override fun getNowPlayingMovies() {
-
+        GetNowPlayingTask().execute()
     }
 
     class GetNowPlayingTask() : AsyncTask<Void, Void, MovieListResponse?>() {

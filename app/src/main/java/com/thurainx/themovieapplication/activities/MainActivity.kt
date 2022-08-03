@@ -13,6 +13,9 @@ import com.thurainx.themovieapplication.delegates.BannerDelegate
 import com.thurainx.themovieapplication.delegates.MovieDelegate
 import com.thurainx.themovieapplication.delegates.ShowcaseDelegate
 import com.thurainx.themovieapplication.dummy.dummyGeneresList
+import com.thurainx.themovieapplication.network.dataagents.MovieDataAgentImpl
+import com.thurainx.themovieapplication.network.dataagents.OkhttpDataAgentImpl
+import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
 import com.thurainx.themovieapplication.viewpods.MovieListViewPod
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,6 +31,10 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         setupActionBar()
         setupBannerViewPager()
         setupViewPods()
+
+        //MovieDataAgentImpl().getNowPlayingMovies()
+        //OkhttpDataAgentImpl().getNowPlayingMovies()
+        RetrofitDataAgentImpl().getNowPlayingMovies()
         setupGeneresTabLayout()
         setupListener()
         setupShowcase()
