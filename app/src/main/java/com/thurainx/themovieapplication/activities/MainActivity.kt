@@ -9,6 +9,8 @@ import com.google.android.material.tabs.TabLayout
 import com.thurainx.themovieapplication.R
 import com.thurainx.themovieapplication.adapters.BannerAdapter
 import com.thurainx.themovieapplication.adapters.ShowcaseAdapter
+import com.thurainx.themovieapplication.data.models.MovieModel
+import com.thurainx.themovieapplication.data.models.MovieModelImpl
 import com.thurainx.themovieapplication.delegates.BannerDelegate
 import com.thurainx.themovieapplication.delegates.MovieDelegate
 import com.thurainx.themovieapplication.delegates.ShowcaseDelegate
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
     lateinit var mShowcaseAdapter: ShowcaseAdapter
     lateinit var mBestAndPopularMovieListViewPod: MovieListViewPod
     lateinit var mGeneresMovieListViewPod: MovieListViewPod
+
+    val mMovieModel : MovieModel = MovieModelImpl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,13 +35,19 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         setupActionBar()
         setupBannerViewPager()
         setupViewPods()
-
-        //MovieDataAgentImpl().getNowPlayingMovies()
-        //OkhttpDataAgentImpl().getNowPlayingMovies()
-        RetrofitDataAgentImpl().getNowPlayingMovies()
         setupGeneresTabLayout()
         setupListener()
         setupShowcase()
+
+        mMovieModel.getNowPlayingMovies(
+            onSuccess = {
+                movieList ->
+                mBannerAdapter.setNewData(movieList)
+            },
+            onFail = {
+                errorMessage ->
+            }
+        )
 
     }
 

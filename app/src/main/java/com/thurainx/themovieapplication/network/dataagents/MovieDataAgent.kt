@@ -1,5 +1,10 @@
 package com.thurainx.themovieapplication.network.dataagents
 
-abstract class MovieDataAgent {
-    abstract fun getNowPlayingMovies()
+import com.thurainx.themovieapplication.data.vos.MovieVO
+
+interface MovieDataAgent {
+     fun getNowPlayingMovies(
+        onSuccess : (List<MovieVO>) -> Unit,
+        onFail : (String) -> Unit
+    )
 }

@@ -3,6 +3,7 @@ package com.thurainx.themovieapplication.network.dataagents
 import android.os.AsyncTask
 import com.google.gson.Gson
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
 import com.thurainx.themovieapplication.utils.BASED_URL
 import com.thurainx.themovieapplication.utils.MOVIE_API_KEY
@@ -12,16 +13,16 @@ import java.util.concurrent.TimeUnit
 import kotlin.Exception
 
 
-class OkhttpDataAgentImpl : MovieDataAgent() {
+class OkhttpDataAgentImpl : MovieDataAgent {
     val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(15, TimeUnit.SECONDS)
         .writeTimeout(15, TimeUnit.SECONDS)
         .build()
 
-    override fun getNowPlayingMovies() {
-        GetOkHttpTask(okHttpClient).execute()
-    }
+//    override fun getNowPlayingMovies() {
+//        GetOkHttpTask(okHttpClient).execute()
+//    }
 
     class GetOkHttpTask(val mClient: OkHttpClient) : AsyncTask<Void, Void, MovieListResponse?>() {
         override fun doInBackground(vararg p0: Void?): MovieListResponse? {
@@ -52,5 +53,9 @@ class OkhttpDataAgentImpl : MovieDataAgent() {
 
         }
 
+    }
+
+    override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
     }
 }

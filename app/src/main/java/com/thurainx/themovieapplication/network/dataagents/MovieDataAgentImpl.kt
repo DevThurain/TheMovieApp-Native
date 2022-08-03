@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.util.Log
 import com.google.gson.Gson
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
 import com.thurainx.themovieapplication.utils.BASED_URL
 import com.thurainx.themovieapplication.utils.MOVIE_API_KEY
@@ -15,10 +16,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-class MovieDataAgentImpl : MovieDataAgent() {
-    override fun getNowPlayingMovies() {
-        GetNowPlayingTask().execute()
-    }
+class MovieDataAgentImpl : MovieDataAgent {
+//    override fun getNowPlayingMovies() {
+//        GetNowPlayingTask().execute()
+//    }
 
     class GetNowPlayingTask() : AsyncTask<Void, Void, MovieListResponse?>() {
         override fun doInBackground(vararg p0: Void?): MovieListResponse? {
@@ -66,5 +67,9 @@ class MovieDataAgentImpl : MovieDataAgent() {
 
         }
 
+    }
+
+    override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
     }
 }

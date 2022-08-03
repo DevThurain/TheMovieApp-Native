@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.util.Log
 import com.google.gson.Gson
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.TheMovieApi
 import com.thurainx.themovieapplication.utils.BASED_URL
 import okhttp3.OkHttpClient
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.Exception
 
 
-class RetrofitDataAgentImpl : MovieDataAgent() {
+class RetrofitDataAgentImpl : MovieDataAgent {
 
     private var mTheMovieApi : TheMovieApi? = null
 
@@ -40,7 +41,7 @@ class RetrofitDataAgentImpl : MovieDataAgent() {
 
 
 
-    override fun getNowPlayingMovies() {
+    override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getNowPlayingMovieList()?.enqueue(
             object : Callback<MovieListResponse>{
                 override fun onResponse(
@@ -49,13 +50,14 @@ class RetrofitDataAgentImpl : MovieDataAgent() {
                 ) {
 
                     val movieList = response.body()?.results ?: listOf()
-                    Log.d("movieList", movieList.toString())
+//                    Log.d("movieList", movieList.toString())
+                    onSuccess(movieList)
 
                 }
 
                 override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
                     t.printStackTrace()
-
+                    onFail(t.message ?: "unknown error")
                 }
 
             }
