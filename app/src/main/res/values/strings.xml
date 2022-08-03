@@ -18,4 +18,5 @@
     <string name="lbl_production">Production</string>
     <string name="lbl_permier">Premier</string>
     <string name="lbl_description">Description</string>
+    <string name="more_actors"><u>More Actors</u></string>
 </resources>

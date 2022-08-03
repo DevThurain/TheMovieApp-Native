@@ -64,7 +64,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#26000000"
+        android:background="#4D000000"
         android:elevation="@dimen/margin_small" />
 
 </RelativeLayout>

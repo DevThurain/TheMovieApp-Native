@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.TheMovieApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor"> @color/colorPrimaryDark</item>

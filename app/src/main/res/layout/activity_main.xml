@@ -47,7 +47,7 @@
                     android:layout_marginVertical="@dimen/margin_medium"
                     app:dotsColor="@color/lightGrey"
                     app:dotsSize="@dimen/margin_medium"
-                    app:dotsSpacing="4dp"
+                    app:dotsSpacing="@dimen/margin_small"
                     app:dotsWidthFactor="1.0"
                     app:selectedDotColor="@color/colorAccent"
                     android:layout_gravity="bottom|center"
@@ -69,12 +69,11 @@
 
             <include
                 android:id="@+id/vpBestAndPopularMovieList"
+                layout="@layout/viewpod_movie_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvBestPopularMovieAndSerials"
-                android:layout_marginTop="@dimen/margin_medium_3"
-                layout="@layout/viewpod_movie_list"
-                />
+                android:layout_marginTop="@dimen/margin_medium_3" />
 
             <RelativeLayout
                 android:id="@+id/rlCheckMovieShowTime"
@@ -107,11 +106,10 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/margin_xxlarge"
                     android:layout_height="@dimen/margin_xxlarge"
-                    android:src="@drawable/ic_baseline_location"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/margin_large"
-                    />
+                    android:src="@drawable/ic_baseline_location" />
 
             </RelativeLayout>
 
@@ -122,8 +120,8 @@
                 android:layout_below="@id/rlCheckMovieShowTime"
                 android:layout_marginTop="@dimen/margin_medium_3"
                 android:background="@color/colorPrimary"
-                app:tabMode="scrollable"
                 app:tabIndicatorColor="@color/colorAccent"
+                app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/colorSecondaryText" />
 

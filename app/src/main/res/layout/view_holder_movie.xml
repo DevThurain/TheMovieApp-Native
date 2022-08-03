@@ -35,15 +35,14 @@
         />
 
     <androidx.appcompat.widget.AppCompatRatingBar
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvMovieName"
-        android:layout_toEndOf="@id/rbMovieRating"
-        android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_medium"
-        android:rating="5"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_toEndOf="@id/rbMovieRating"
         android:progressTint="@color/colorAccent"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        />
+        android:rating="5" />
 
 </RelativeLayout>
