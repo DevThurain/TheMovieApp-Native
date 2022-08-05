@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.thurainx.themovieapplication.adapters.MovieAdapter
+import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.delegates.MovieDelegate
 import kotlinx.android.synthetic.main.viewpod_movie_list.view.*
 
@@ -25,6 +26,10 @@ class MovieListViewPod @JvmOverloads constructor(
     private fun setUpMovieRecyclerView(){
         mMovieAdapter = MovieAdapter(mDelegate)
         rvMovieList.adapter = mMovieAdapter
+    }
+
+    fun setData(movieList : List<MovieVO>){
+        mMovieAdapter.setNewData(movieList)
     }
 
     override fun onFinishInflate() {

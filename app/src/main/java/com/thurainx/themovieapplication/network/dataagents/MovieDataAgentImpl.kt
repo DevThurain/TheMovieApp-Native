@@ -3,6 +3,7 @@ package com.thurainx.themovieapplication.network.dataagents
 import android.os.AsyncTask
 import android.util.Log
 import com.google.gson.Gson
+import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
@@ -72,4 +73,26 @@ class MovieDataAgentImpl : MovieDataAgent {
     override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
         TODO("Not yet implemented")
     }
+
+    override fun getPopularMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getTopRatedMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getGenresList(onSuccess: (List<GenreVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getMoviesByGenre(
+        genreId: String,
+        onSuccess: (List<MovieVO>) -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        TODO("Not yet implemented")
+    }
+
+
 }

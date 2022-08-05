@@ -3,6 +3,8 @@ package com.thurainx.themovieapplication.network.dataagents
 import android.os.AsyncTask
 import android.util.Log
 import com.google.gson.Gson
+import com.thurainx.themovieapplication.data.vos.GenreListResponse
+import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.TheMovieApi
@@ -63,5 +65,102 @@ class RetrofitDataAgentImpl : MovieDataAgent {
             }
         )
     }
+
+    override fun getPopularMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        mTheMovieApi?.getPopularMovieList()?.enqueue(
+            object : Callback<MovieListResponse>{
+                override fun onResponse(
+                    call: Call<MovieListResponse>,
+                    response: Response<MovieListResponse>
+                ) {
+
+                    val movieList = response.body()?.results ?: listOf()
+//                    Log.d("movieList", movieList.toString())
+                    onSuccess(movieList)
+
+                }
+
+                override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+        )
+    }
+
+    override fun getTopRatedMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
+        mTheMovieApi?.getTopRatedMovieList()?.enqueue(
+            object : Callback<MovieListResponse>{
+                override fun onResponse(
+                    call: Call<MovieListResponse>,
+                    response: Response<MovieListResponse>
+                ) {
+
+                    val movieList = response.body()?.results ?: listOf()
+//                    Log.d("movieList", movieList.toString())
+                    onSuccess(movieList)
+
+                }
+
+                override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+        )
+    }
+
+    override fun getGenresList(onSuccess: (List<GenreVO>) -> Unit, onFail: (String) -> Unit) {
+        mTheMovieApi?.getGenresList()?.enqueue(
+            object : Callback<GenreListResponse>{
+                override fun onResponse(
+                    call: Call<GenreListResponse>,
+                    response: Response<GenreListResponse>
+                ) {
+
+                    val genresList = response.body()?.genres ?: listOf()
+//                    Log.d("movieList", movieList.toString())
+                    onSuccess(genresList)
+
+                }
+
+                override fun onFailure(call: Call<GenreListResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+        )
+    }
+
+    override fun getMoviesByGenre(
+        genreId: String,
+        onSuccess: (List<MovieVO>) -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        mTheMovieApi?.getMoviesByGenre(genreId = genreId)?.enqueue(
+            object : Callback<MovieListResponse>{
+                override fun onResponse(
+                    call: Call<MovieListResponse>,
+                    response: Response<MovieListResponse>
+                ) {
+
+                    val movieList = response.body()?.results ?: listOf()
+                    Log.d("movieList", movieList.toString())
+                    onSuccess(movieList)
+
+                }
+
+                override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+        )
+    }
+
 
 }

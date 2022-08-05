@@ -46,4 +46,10 @@ data class MovieVO(
     val voteCount:Int?
 
 
-)
+
+){
+    fun getVotingBasedOnFiveStars() : Float{
+        return voteAverage?.div(2)?.toFloat() ?: 0.00f
+    }
+
+}
