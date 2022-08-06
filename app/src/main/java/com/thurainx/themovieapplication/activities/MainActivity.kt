@@ -172,23 +172,23 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         return true
     }
 
-    override fun onTapBanner() {
+    override fun onTapBanner(movieId: Int?) {
 //        Snackbar.make(window.decorView,"Banner Click",Snackbar.LENGTH_SHORT).show()
-        val intent = MovieDetailActivity.newIntent(this)
+        val intent = MovieDetailActivity.newIntent(this, movieId)
         startActivity(intent)
     }
 
 
-    override fun onTapMovie() {
+    override fun onTapMovie(movieId: Int?) {
 //        Snackbar.make(window.decorView,"Best Popular Movie Click or Generes Movie Click",Snackbar.LENGTH_SHORT).show()
-        val intent = MovieDetailActivity.newIntent(this)
+        val intent = MovieDetailActivity.newIntent(this, movieId)
         startActivity(intent)
     }
 
-    override fun onTapShowcase() {
+    override fun onTapShowcase(movieId: Int?) {
 //        Snackbar.make(window.decorView,"Showcase Click",Snackbar.LENGTH_SHORT).show()
 
-        val intent = MovieDetailActivity.newIntent(this)
+        val intent = MovieDetailActivity.newIntent(this, movieId)
         startActivity(intent)
     }
 }

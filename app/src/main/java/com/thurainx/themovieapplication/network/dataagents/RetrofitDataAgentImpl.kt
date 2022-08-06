@@ -8,6 +8,7 @@ import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.TheMovieApi
 import com.thurainx.themovieapplication.network.responses.ActorListResponse
+import com.thurainx.themovieapplication.network.responses.CreditListByMovieResponse
 import com.thurainx.themovieapplication.utils.BASED_URL
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitDataAgentImpl : MovieDataAgent {
 
-    private var mTheMovieApi : TheMovieApi? = null
+    private var mTheMovieApi: TheMovieApi? = null
 
     init {
         val okHttpClient = OkHttpClient.Builder()
@@ -40,10 +41,9 @@ class RetrofitDataAgentImpl : MovieDataAgent {
     }
 
 
-
     override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getNowPlayingMovieList()?.enqueue(
-            object : Callback<MovieListResponse>{
+            object : Callback<MovieListResponse> {
                 override fun onResponse(
                     call: Call<MovieListResponse>,
                     response: Response<MovieListResponse>
@@ -66,7 +66,7 @@ class RetrofitDataAgentImpl : MovieDataAgent {
 
     override fun getPopularMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getPopularMovieList()?.enqueue(
-            object : Callback<MovieListResponse>{
+            object : Callback<MovieListResponse> {
                 override fun onResponse(
                     call: Call<MovieListResponse>,
                     response: Response<MovieListResponse>
@@ -89,7 +89,7 @@ class RetrofitDataAgentImpl : MovieDataAgent {
 
     override fun getTopRatedMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getTopRatedMovieList()?.enqueue(
-            object : Callback<MovieListResponse>{
+            object : Callback<MovieListResponse> {
                 override fun onResponse(
                     call: Call<MovieListResponse>,
                     response: Response<MovieListResponse>
@@ -112,7 +112,7 @@ class RetrofitDataAgentImpl : MovieDataAgent {
 
     override fun getGenresList(onSuccess: (List<GenreVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getGenresList()?.enqueue(
-            object : Callback<GenreListResponse>{
+            object : Callback<GenreListResponse> {
                 override fun onResponse(
                     call: Call<GenreListResponse>,
                     response: Response<GenreListResponse>
@@ -139,7 +139,7 @@ class RetrofitDataAgentImpl : MovieDataAgent {
         onFail: (String) -> Unit
     ) {
         mTheMovieApi?.getMoviesByGenre(genreId = genreId)?.enqueue(
-            object : Callback<MovieListResponse>{
+            object : Callback<MovieListResponse> {
                 override fun onResponse(
                     call: Call<MovieListResponse>,
                     response: Response<MovieListResponse>
@@ -162,7 +162,7 @@ class RetrofitDataAgentImpl : MovieDataAgent {
 
     override fun getActorList(onSuccess: (List<ActorVO>) -> Unit, onFail: (String) -> Unit) {
         mTheMovieApi?.getActorList()?.enqueue(
-            object : Callback<ActorListResponse>{
+            object : Callback<ActorListResponse> {
                 override fun onResponse(
                     call: Call<ActorListResponse>,
                     response: Response<ActorListResponse>
@@ -180,6 +180,64 @@ class RetrofitDataAgentImpl : MovieDataAgent {
                 }
 
             }
+        )
+    }
+
+    override fun getMovieDetailById(
+        id: String,
+        onSuccess: (MovieVO) -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        mTheMovieApi?.getMovieById(movie_id = id)?.enqueue(
+            object : Callback<MovieVO> {
+                override fun onResponse(
+                    call: Call<MovieVO>,
+                    response: Response<MovieVO>
+                ) {
+
+                    val movie = response.body()
+                    movie?.let(onSuccess)
+
+                }
+
+                override fun onFailure(call: Call<MovieVO>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+
+        )
+
+    }
+
+    override fun getCreditByMovieId(
+        id: String,
+        onSuccess : (Pair<List<ActorVO>,List<ActorVO>>) -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        mTheMovieApi?.getCreditByMovieId(movieId = id)?.enqueue(
+            object : Callback<CreditListByMovieResponse> {
+                override fun onResponse(
+                    call: Call<CreditListByMovieResponse>,
+                    response: Response<CreditListByMovieResponse>
+                ) {
+
+                    val creditList = response.body()
+                    Log.d("movieList", creditList.toString())
+                    creditList?.let{
+                        onSuccess(Pair(it.cast ?: listOf(), it.crew ?: listOf()))
+                    }
+
+                }
+
+                override fun onFailure(call: Call<CreditListByMovieResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+
         )
     }
 

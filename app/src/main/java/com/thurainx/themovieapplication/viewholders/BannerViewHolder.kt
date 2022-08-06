@@ -11,13 +11,17 @@ import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
 import kotlinx.android.synthetic.main.view_item_banner.view.*
 
 class BannerViewHolder(itemView: View,private val mDelegate: BannerDelegate) : RecyclerView.ViewHolder(itemView) {
+    var mMovieVO : MovieVO? = null
     init {
         itemView.setOnClickListener{
-            mDelegate.onTapBanner()
+            mMovieVO?.let {
+                mDelegate.onTapBanner(it.id)
+            }
         }
     }
 
     fun onBind(movie: MovieVO){
+        mMovieVO = movie
         itemView.tvBannerName.text = movie.title
         Glide.with(itemView.context)
             .load(IMAGE_BASED_URL.plus(movie.posterPath))

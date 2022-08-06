@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:contentScrim="@color/colorPrimaryDark"
@@ -21,6 +22,7 @@
             app:title="Fantastic Beasts And Where To Find Them">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMovieDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -70,13 +72,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/margin_medium"
                     android:layout_marginHorizontal="@dimen/margin_medium_2"
+                    android:layout_marginBottom="@dimen/margin_medium"
                     android:text="Fantastic Beasts And Where To Find Them"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_heading_1x"
-                    />
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvReleaseYear"
@@ -84,10 +85,10 @@
                     android:layout_height="@dimen/margin_xlarge"
                     android:layout_above="@id/tvMovieDetailName"
                     android:layout_marginStart="@dimen/margin_medium_2"
+                    android:layout_marginBottom="@dimen/margin_small"
                     android:background="@drawable/background_release_year"
                     android:gravity="center"
                     android:text="2016"
-                    android:layout_marginBottom="@dimen/margin_small"
                     android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -96,8 +97,8 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@id/tvMovieDetailName"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/margin_medium_2"
                     android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_medium_2"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:text="9,75"
                     android:textColor="@color/white"
@@ -117,6 +118,7 @@
                     android:rating="5.0" />
 
                 <TextView
+                    android:id="@+id/tvVoteCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rbMovieDetailRating"
@@ -173,7 +175,7 @@
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAdventure"
+                android:id="@+id/genreFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_xlarge"
                 android:layout_marginStart="@dimen/margin_card_medium"
@@ -182,31 +184,34 @@
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/margin_card_medium_2"
                 android:text="Adventure"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvComedy"
+                android:id="@+id/genreSecond"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_xlarge"
-                android:layout_toEndOf="@id/tvAdventure"
+                android:layout_marginStart="@dimen/margin_card_medium"
+                android:layout_toEndOf="@id/genreFirst"
+                android:background="@drawable/background_genere"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/margin_card_medium_2"
                 android:text="Comedy"
-                android:layout_marginStart="@dimen/margin_card_medium"
-                android:background="@drawable/background_genere"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvScifi"
+                android:id="@+id/genreThird"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_xlarge"
-                android:layout_toEndOf="@id/tvComedy"
+                android:layout_marginStart="@dimen/margin_card_medium"
+                android:layout_toEndOf="@id/genreSecond"
+                android:background="@drawable/background_genere"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/margin_card_medium_2"
                 android:text="Sci Fi"
-                android:layout_marginStart="@dimen/margin_card_medium"
-                android:background="@drawable/background_genere"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivFavourite"
@@ -234,12 +239,11 @@
                 android:id="@+id/tvPlot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lured to a Japan he hasn't seen since World War II, century-old mutant Wolverine (Hugh Jackman) finds himself in a shadowy realm of yakuza and samurai. Wolverine is pushed to his physical and emotional brink when he is forced to go on the run with a powerful industrialist's daughter (Tao Okamoto) and is confronted -- for the first time -- with the prospect of death. As he struggles to rediscover the hero within himself, he must grapple with powerful foes and the ghosts of his own haunted past."
                 android:layout_below="@+id/tvStoryLine"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:textColor="@color/white"
                 android:layout_marginHorizontal="@dimen/margin_medium_2"
-                />
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Lured to a Japan he hasn't seen since World War II, century-old mutant Wolverine (Hugh Jackman) finds himself in a shadowy realm of yakuza and samurai. Wolverine is pushed to his physical and emotional brink when he is forced to go on the run with a powerful industrialist's daughter (Tao Okamoto) and is confronted -- for the first time -- with the prospect of death. As he struggles to rediscover the hero within himself, he must grapple with powerful foes and the ghosts of his own haunted past."
+                android:textColor="@color/white" />
 
             <RelativeLayout
                 android:id="@+id/rlPlayTrailer"
@@ -296,13 +300,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/margin_medium"
                     android:layout_toEndOf="@id/ivRateMovie"
                     android:text="@string/lbl_rate_movie"
-                    android:layout_marginStart="@dimen/margin_medium"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -405,7 +408,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvAboutTypeText"
+                    android:id="@+id/tvProductionText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"

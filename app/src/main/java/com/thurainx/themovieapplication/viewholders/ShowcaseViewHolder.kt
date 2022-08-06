@@ -10,13 +10,18 @@ import kotlinx.android.synthetic.main.view_holder_movie.view.*
 import kotlinx.android.synthetic.main.view_holder_showcase.view.*
 
 class ShowcaseViewHolder(itemView: View, private val mDelegate : ShowcaseDelegate) : RecyclerView.ViewHolder(itemView) {
+    var mMovieVO : MovieVO? = null
+
     init {
         itemView.setOnClickListener{
-            mDelegate.onTapShowcase()
+            mMovieVO?.let {
+                mDelegate.onTapShowcase(it.id)
+            }
         }
     }
 
     fun bindData(movie: MovieVO){
+        mMovieVO = movie
         itemView.tvShowcaseName.text = movie.title
         itemView.tvShowcaseDate.text = movie.releaseDate.toString()
         Glide.with(itemView.context)

@@ -6,6 +6,7 @@ import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
+import com.thurainx.themovieapplication.network.responses.CreditListByMovieResponse
 import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
 import com.thurainx.themovieapplication.utils.BASED_URL
 import com.thurainx.themovieapplication.utils.MOVIE_API_KEY
@@ -82,6 +83,22 @@ class OkhttpDataAgentImpl : MovieDataAgent {
     }
 
     override fun getActorList(onSuccess: (List<ActorVO>) -> Unit, onFail: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getMovieDetailById(
+        id: String,
+        onSuccess: (MovieVO) -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCreditByMovieId(
+        id: String,
+        onSuccess : (Pair<List<ActorVO>,List<ActorVO>>) -> Unit,
+        onFail: (String) -> Unit
+    ) {
         TODO("Not yet implemented")
     }
 

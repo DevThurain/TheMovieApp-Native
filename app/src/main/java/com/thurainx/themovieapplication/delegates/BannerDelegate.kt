@@ -1,5 +1,5 @@
 package com.thurainx.themovieapplication.delegates
 
 interface BannerDelegate {
-    fun onTapBanner()
+    fun onTapBanner(movieId: Int?)
 }

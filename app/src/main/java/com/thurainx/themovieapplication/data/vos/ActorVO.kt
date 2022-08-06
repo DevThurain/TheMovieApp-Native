@@ -24,4 +24,20 @@ data class ActorVO(
     @SerializedName("profile_path")
     val profilePath: String?,
 
+    @SerializedName("original_name")
+    val originalName: String?,
+
+    @SerializedName("character")
+    val character: String?,
+
+    @SerializedName("credit_id")
+    val creditId: String?,
+
+    @SerializedName("department")
+    val department: String?,
+
+    @SerializedName("job")
+    val job: String?,
+
+
 )
