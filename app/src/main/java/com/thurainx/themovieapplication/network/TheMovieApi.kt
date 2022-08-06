@@ -1,7 +1,8 @@
 package com.thurainx.themovieapplication.network
 
-import com.thurainx.themovieapplication.data.vos.GenreListResponse
-import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.network.responses.ActorListResponse
+import com.thurainx.themovieapplication.network.responses.GenreListResponse
+import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.utils.*
 import retrofit2.Call
 import retrofit2.http.GET
@@ -41,4 +42,10 @@ interface TheMovieApi {
         @Query(PARAM_LANGUAGE) language: String = "en-US",
         @Query(PARAM_GENRE_ID) genreId: String,
     ) : Call<MovieListResponse>
+
+    @GET(API_GET_ACTOR_LIST)
+    fun getActorList(
+        @Query(PARAM_PAGE) page: Int = 1,
+        @Query(PARAM_API_KEY) apiKey: String = MOVIE_API_KEY,
+    ) : Call<ActorListResponse>
 }

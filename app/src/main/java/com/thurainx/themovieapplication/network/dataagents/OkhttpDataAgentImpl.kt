@@ -2,8 +2,9 @@ package com.thurainx.themovieapplication.network.dataagents
 
 import android.os.AsyncTask
 import com.google.gson.Gson
+import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
-import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.utils.API_GET_NOW_PLAYING
 import com.thurainx.themovieapplication.utils.BASED_URL
@@ -77,6 +78,10 @@ class OkhttpDataAgentImpl : MovieDataAgent {
         onSuccess: (List<MovieVO>) -> Unit,
         onFail: (String) -> Unit
     ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getActorList(onSuccess: (List<ActorVO>) -> Unit, onFail: (String) -> Unit) {
         TODO("Not yet implemented")
     }
 

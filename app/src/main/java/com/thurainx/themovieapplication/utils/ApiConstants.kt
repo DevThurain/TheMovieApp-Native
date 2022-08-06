@@ -8,6 +8,7 @@ const val API_GET_POPULAR_MOVIES = "movie/popular"
 const val API_GET_TOP_RATED_MOVIES = "movie/top_rated"
 const val API_GET_GENRES = "genre/movie/list"
 const val API_GET_MOVIES_BY_GENRE = "discover/movie"
+const val API_GET_ACTOR_LIST = "person/popular"
 
 const val MOVIE_API_KEY = "a86e2ebff9ae95b6e167546fae5fd636"
 

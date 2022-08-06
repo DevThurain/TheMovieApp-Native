@@ -1,6 +1,8 @@
-package com.thurainx.themovieapplication.data.vos
+package com.thurainx.themovieapplication.network.responses
 
 import com.google.gson.annotations.SerializedName
+import com.thurainx.themovieapplication.data.vos.DateVO
+import com.thurainx.themovieapplication.data.vos.MovieVO
 
 data class MovieListResponse(
     @SerializedName("dates")
@@ -12,4 +14,4 @@ data class MovieListResponse(
     @SerializedName("results")
     val results: List<MovieVO>?,
 
-)
+    )

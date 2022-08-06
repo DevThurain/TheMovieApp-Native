@@ -1,23 +1,21 @@
 package com.thurainx.themovieapplication.network.dataagents
 
-import android.os.AsyncTask
 import android.util.Log
-import com.google.gson.Gson
-import com.thurainx.themovieapplication.data.vos.GenreListResponse
+import com.thurainx.themovieapplication.data.vos.ActorVO
+import com.thurainx.themovieapplication.network.responses.GenreListResponse
 import com.thurainx.themovieapplication.data.vos.GenreVO
-import com.thurainx.themovieapplication.data.vos.MovieListResponse
+import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.TheMovieApi
+import com.thurainx.themovieapplication.network.responses.ActorListResponse
 import com.thurainx.themovieapplication.utils.BASED_URL
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import kotlin.Exception
 
 
 class RetrofitDataAgentImpl : MovieDataAgent {
@@ -154,6 +152,29 @@ class RetrofitDataAgentImpl : MovieDataAgent {
                 }
 
                 override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    onFail(t.message ?: "unknown error")
+                }
+
+            }
+        )
+    }
+
+    override fun getActorList(onSuccess: (List<ActorVO>) -> Unit, onFail: (String) -> Unit) {
+        mTheMovieApi?.getActorList()?.enqueue(
+            object : Callback<ActorListResponse>{
+                override fun onResponse(
+                    call: Call<ActorListResponse>,
+                    response: Response<ActorListResponse>
+                ) {
+
+                    val actorList = response.body()?.results ?: listOf()
+//                    Log.d("movieList", movieList.toString())
+                    onSuccess(actorList)
+
+                }
+
+                override fun onFailure(call: Call<ActorListResponse>, t: Throwable) {
                     t.printStackTrace()
                     onFail(t.message ?: "unknown error")
                 }

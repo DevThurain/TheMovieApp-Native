@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import com.thurainx.themovieapplication.R
 import com.thurainx.themovieapplication.adapters.PersonAdapter
+import com.thurainx.themovieapplication.data.vos.ActorVO
 import kotlinx.android.synthetic.main.viewpod_person_list.view.*
 
 class PersonListViewPod @JvmOverloads constructor(
@@ -29,6 +30,10 @@ class PersonListViewPod @JvmOverloads constructor(
     private fun setupPersonRecyclerView(){
         mPersonAdapter = PersonAdapter()
         rvPersonList.adapter = mPersonAdapter
+    }
+
+    fun setData(actorList : List<ActorVO>){
+        mPersonAdapter.setNewData(actorList)
     }
 
 }

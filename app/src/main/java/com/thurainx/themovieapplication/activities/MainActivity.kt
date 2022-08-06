@@ -20,6 +20,7 @@ import com.thurainx.themovieapplication.network.dataagents.MovieDataAgentImpl
 import com.thurainx.themovieapplication.network.dataagents.OkhttpDataAgentImpl
 import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
 import com.thurainx.themovieapplication.viewpods.MovieListViewPod
+import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, ShowcaseDelegate {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
     lateinit var mShowcaseAdapter: ShowcaseAdapter
     lateinit var mBestAndPopularMovieListViewPod: MovieListViewPod
     lateinit var mGeneresMovieListViewPod: MovieListViewPod
+    lateinit var mActorListViewPod: PersonListViewPod
 
     val mMovieModel: MovieModel = MovieModelImpl
     var mGenresList: List<GenreVO> = listOf()
@@ -85,6 +87,15 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
             }
         )
 
+        mMovieModel.getActorList(
+            onSuccess = { actorList ->
+                mActorListViewPod.setData(actorList)
+            },
+            onFail = { errorMessage ->
+
+            }
+        )
+
 
     }
 
@@ -116,9 +127,12 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
     private fun setupViewPods() {
         mBestAndPopularMovieListViewPod = vpBestAndPopularMovieList as MovieListViewPod
         mGeneresMovieListViewPod = vpGenresMovieList as MovieListViewPod
+        mActorListViewPod = vpActorList as PersonListViewPod
+
 
         mBestAndPopularMovieListViewPod.setUpMovieListViewPod(this)
         mGeneresMovieListViewPod.setUpMovieListViewPod(this)
+
     }
 
     private fun setupGeneresTabLayout(genresList: List<GenreVO>) {

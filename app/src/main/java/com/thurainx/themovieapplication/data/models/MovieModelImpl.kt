@@ -1,5 +1,6 @@
 package com.thurainx.themovieapplication.data.models
 
+import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.dataagents.MovieDataAgent
@@ -30,5 +31,9 @@ object MovieModelImpl : MovieModel {
         onFail: (String) -> Unit
     ) {
         mMovieDataAgent.getMoviesByGenre(genreId = genreId,onSuccess= onSuccess, onFail= onFail)
+    }
+
+    override fun getActorList(onSuccess: (List<ActorVO>) -> Unit, onFail: (String) -> Unit) {
+        mMovieDataAgent.getActorList(onSuccess= onSuccess, onFail= onFail)
     }
 }
