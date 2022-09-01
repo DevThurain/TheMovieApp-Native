@@ -19,9 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class RetrofitDataAgentImpl : MovieDataAgent {
+object RetrofitDataAgentImpl : MovieDataAgent {
 
     private var mTheMovieApi: TheMovieApi? = null
+
+
 
     init {
         val okHttpClient = OkHttpClient.Builder()

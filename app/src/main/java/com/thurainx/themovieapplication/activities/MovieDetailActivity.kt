@@ -41,6 +41,8 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
 
         setupListeners()
+        initViewPods()
+
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
         fetchData(movieId)
@@ -59,7 +61,7 @@ class MovieDetailActivity : AppCompatActivity() {
         mMovieModel.getCreditByMovieId(
             id = movieId.toString(),
             onSuccess = {
-                setupViewPods(it.first, it.second)
+                bindViewPods(it.first, it.second)
             },
             onFail = {}
         )
@@ -103,7 +105,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupViewPods(castList: List<ActorVO>, creatorList: List<ActorVO>) {
+    private fun initViewPods(){
         mActorListViewPod = vpMovieDetailActorList as PersonListViewPod
         mCreatorListViewPod = vpMovieDetailCreatorList as PersonListViewPod
 
@@ -117,8 +119,24 @@ class MovieDetailActivity : AppCompatActivity() {
             titleText = getString(R.string.lbl_creators),
             moreTitleText = getString(R.string.lbl_more_creators)
         )
+    }
 
+    private fun bindViewPods(castList: List<ActorVO>, creatorList: List<ActorVO>) {
         mActorListViewPod.setData(castList)
         mCreatorListViewPod.setData(creatorList)
+
+        if(castList.isEmpty()){
+            mActorListViewPod.visibility = View.GONE
+        }else{
+            mActorListViewPod.visibility = View.VISIBLE
+        }
+
+        if(creatorList.isEmpty()){
+            mCreatorListViewPod.visibility = View.GONE
+        }else{
+            mCreatorListViewPod.visibility = View.VISIBLE
+        }
+
     }
+
 }

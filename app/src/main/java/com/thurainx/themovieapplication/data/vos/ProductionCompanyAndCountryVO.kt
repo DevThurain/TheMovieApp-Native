@@ -2,7 +2,7 @@ package com.thurainx.themovieapplication.data.vos
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductionCompanyVO(
+data class ProductionCompanyAndCountryVO(
     @SerializedName("id")
     val id: Int?,
 
