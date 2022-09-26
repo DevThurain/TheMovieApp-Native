@@ -45,18 +45,17 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        fetchData(movieId)
+        requestData(movieId)
     }
 
-    private fun fetchData(movieId: Int) {
+    private fun requestData(movieId: Int) {
         mMovieModel.getMovieDetailById(
             id = movieId.toString(),
-            onSuccess = { movie ->
-                bindData(movie)
-            },
-            onFail = { errorMessage ->
-            }
-        )
+        ) {
+            showError(it)
+        }?.observe(this) {
+            bindData(it)
+        }
 
         mMovieModel.getCreditByMovieId(
             id = movieId.toString(),
@@ -85,15 +84,15 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun bindGenres(genres: List<GenreVO>) {
-       if (genres.size >= 1){
-           genreFirst.text = genres[0].name
-           genreFirst.visibility = View.VISIBLE
-       }
-        if (genres.size >= 2){
+        if (genres.size >= 1) {
+            genreFirst.text = genres[0].name
+            genreFirst.visibility = View.VISIBLE
+        }
+        if (genres.size >= 2) {
             genreSecond.text = genres[1].name
             genreSecond.visibility = View.VISIBLE
         }
-        if (genres.size >= 3){
+        if (genres.size >= 3) {
             genreThird.text = genres[2].name
             genreThird.visibility = View.VISIBLE
         }
@@ -105,7 +104,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPods(){
+    private fun initViewPods() {
         mActorListViewPod = vpMovieDetailActorList as PersonListViewPod
         mCreatorListViewPod = vpMovieDetailCreatorList as PersonListViewPod
 
@@ -125,18 +124,22 @@ class MovieDetailActivity : AppCompatActivity() {
         mActorListViewPod.setData(castList)
         mCreatorListViewPod.setData(creatorList)
 
-        if(castList.isEmpty()){
+        if (castList.isEmpty()) {
             mActorListViewPod.visibility = View.GONE
-        }else{
+        } else {
             mActorListViewPod.visibility = View.VISIBLE
         }
 
-        if(creatorList.isEmpty()){
+        if (creatorList.isEmpty()) {
             mCreatorListViewPod.visibility = View.GONE
-        }else{
+        } else {
             mCreatorListViewPod.visibility = View.VISIBLE
         }
 
+    }
+
+    private fun showError(error: String) {
+        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
     }
 
 }

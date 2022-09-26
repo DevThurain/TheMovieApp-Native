@@ -1,5 +1,6 @@
 package com.thurainx.themovieapplication.data.models
 
+import androidx.lifecycle.LiveData
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
@@ -10,17 +11,17 @@ import com.thurainx.themovieapplication.network.responses.CreditListByMovieRespo
 interface MovieModel {
 
      fun getNowPlayingMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
         onFail : (String) -> Unit
-    )
+    ): LiveData<List<MovieVO>>?
+
     fun getPopularMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
         onFail : (String) -> Unit
-    )
+    ): LiveData<List<MovieVO>>?
+
     fun getTopRatedMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
         onFail : (String) -> Unit
-    )
+    ): LiveData<List<MovieVO>>?
+
     fun getGenresList(
         onSuccess : (List<GenreVO>) -> Unit,
         onFail : (String) -> Unit
@@ -34,14 +35,15 @@ interface MovieModel {
         onSuccess : (List<ActorVO>) -> Unit,
         onFail : (String) -> Unit
     )
+
     fun getMovieDetailById(
         id: String,
-        onSuccess : (MovieVO) -> Unit,
         onFail : (String) -> Unit
-    )
+    ): LiveData<MovieVO>?
+
     fun getCreditByMovieId(
         id: String,
-        onSuccess : (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
+        onSuccess: (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
         onFail : (String) -> Unit
     )
 }

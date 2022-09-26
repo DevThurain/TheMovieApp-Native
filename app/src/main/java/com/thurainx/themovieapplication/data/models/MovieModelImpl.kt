@@ -1,6 +1,7 @@
 package com.thurainx.themovieapplication.data.models
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.thurainx.themovieapplication.persistence.MovieDatabase
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
@@ -23,8 +24,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
 //        mMovieDatabase = MovieDatabase.getDBInstant(context)
 //    }
 
-    override fun getNowPlayingMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
-        onSuccess(mMovieDatabase?.movieDao()?.getMoviesByType(NOW_PLAYING) ?: listOf())
+    override fun getNowPlayingMovies(onFail: (String) -> Unit): LiveData<List<MovieVO>>? {
 
         mTheMovieApi.getNowPlayingMovieList()
             .subscribeOn(Schedulers.io())
@@ -34,14 +34,15 @@ object MovieModelImpl : BasedModel(), MovieModel {
                     it.type = NOW_PLAYING
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
-                onSuccess(response.results ?: listOf())
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
+
+        return mMovieDatabase?.movieDao()?.getMoviesByType(NOW_PLAYING)
+
     }
 
-    override fun getPopularMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
-        onSuccess(mMovieDatabase?.movieDao()?.getMoviesByType(POPULAR) ?: listOf())
+    override fun getPopularMovies(onFail: (String) -> Unit): LiveData<List<MovieVO>>? {
 
         mTheMovieApi.getPopularMovieList()
             .subscribeOn(Schedulers.io())
@@ -51,14 +52,15 @@ object MovieModelImpl : BasedModel(), MovieModel {
                     it.type = POPULAR
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
-                onSuccess(response.results ?: listOf())
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
+
+        return mMovieDatabase?.movieDao()?.getMoviesByType(POPULAR)
+
     }
 
-    override fun getTopRatedMovies(onSuccess: (List<MovieVO>) -> Unit, onFail: (String) -> Unit) {
-        onSuccess(mMovieDatabase?.movieDao()?.getMoviesByType(TOP_RATED) ?: listOf())
+    override fun getTopRatedMovies(onFail: (String) -> Unit): LiveData<List<MovieVO>>? {
 
         mTheMovieApi.getTopRatedMovieList()
             .subscribeOn(Schedulers.io())
@@ -68,10 +70,11 @@ object MovieModelImpl : BasedModel(), MovieModel {
                     it.type = TOP_RATED
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
-                onSuccess(response.results ?: listOf())
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
+
+        return mMovieDatabase?.movieDao()?.getMoviesByType(TOP_RATED)
     }
 
     override fun getGenresList(onSuccess: (List<GenreVO>) -> Unit, onFail: (String) -> Unit) {
@@ -106,42 +109,39 @@ object MovieModelImpl : BasedModel(), MovieModel {
         mTheMovieApi.getActorList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({ response ->
+            .subscribe({ response ->
                 response.results?.forEach {
                     it.type = POPULAR
                     mMovieDatabase?.actorDao()?.insertSingleActor(it)
                 }
                 onSuccess(response.results ?: listOf())
-            },{
+            }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
     }
 
     override fun getMovieDetailById(
         id: String,
-        onSuccess: (MovieVO) -> Unit,
         onFail: (String) -> Unit
-    ) {
-        val mMovie: MovieVO? = mMovieDatabase?.movieDao()?.getMovieById(id.toInt())
-        mMovie?.let {
-            onSuccess(it)
-        }
+    ): LiveData<MovieVO>? {
+
 
         mTheMovieApi.getMovieById(movie_id = id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                mMovie?.let {
+                val movieFromDBToSync: MovieVO? =
+                    mMovieDatabase?.movieDao()?.getOneTimeMovieById(id.toInt())
+
+                movieFromDBToSync?.let {
                     response.type = it.type
                     mMovieDatabase?.movieDao()?.insertSingleMovie(response)
                 }
-                onSuccess(response)
-
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
 
-
+        return mMovieDatabase?.movieDao()?.getMovieById(id.toInt())
     }
 
     override fun getCreditByMovieId(
@@ -172,7 +172,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
                     mMovieDatabase?.actorDao()?.insertSingleActor(actor)
                 }
 
-                onSuccess(Pair(response.cast ?: listOf(),response.crew ?: listOf()))
+                onSuccess(Pair(response.cast ?: listOf(), response.crew ?: listOf()))
 
             }, {
                 onFail(it.localizedMessage ?: "unknown error")

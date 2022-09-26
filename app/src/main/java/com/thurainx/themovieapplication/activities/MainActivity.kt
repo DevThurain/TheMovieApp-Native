@@ -41,37 +41,30 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         setupViewPods()
         setupListener()
         setupShowcase()
-        setupNetworkCall()
+        requestDate()
 
 
     }
 
-    private fun setupNetworkCall() {
-        mMovieModel.getNowPlayingMovies(
-            onSuccess = { movieList ->
-                mBannerAdapter.setNewData(movieList)
-            },
-            onFail = { errorMessage ->
-            }
-        )
+    private fun requestDate() {
+        mMovieModel.getNowPlayingMovies {
+            showError(it)
+        }?.observe(this) {
+            mBannerAdapter.setNewData(it)
+        }
 
-        mMovieModel.getPopularMovies(
-            onSuccess = { movieList ->
-                mBestAndPopularMovieListViewPod.setData(movieList)
-            },
-            onFail = { errorMessage ->
+        mMovieModel.getPopularMovies {
+            showError(it)
+        }?.observe(this) {
+            mBestAndPopularMovieListViewPod.setData(it)
+        }
 
-            }
-        )
+        mMovieModel.getTopRatedMovies {
+            showError(it)
+        }?.observe(this) {
+            mShowcaseAdapter.setNewData(it)
 
-        mMovieModel.getTopRatedMovies(
-            onSuccess = { movieList ->
-                mShowcaseAdapter.setNewData(movieList)
-            },
-            onFail = { errorMessage ->
-
-            }
-        )
+        }
 
         mMovieModel.getGenresList(
             onSuccess = { genresList ->
@@ -83,7 +76,7 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
 
             },
             onFail = {
-
+                showError(it)
             }
         )
 
@@ -91,8 +84,8 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
             onSuccess = { actorList ->
                 mActorListViewPod.setData(actorList)
             },
-            onFail = { errorMessage ->
-
+            onFail = {
+                showError(it)
             }
         )
 
@@ -107,7 +100,7 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
 
             },
             onFail = {
-
+                showError(it)
             }
         )
     }
@@ -190,5 +183,9 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
 
         val intent = MovieDetailActivity.newIntent(this, movieId)
         startActivity(intent)
+    }
+
+    private fun showError(error: String) {
+        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
     }
 }
