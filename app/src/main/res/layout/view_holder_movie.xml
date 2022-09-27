@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/width_movie_item"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_medium_2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,9 +9,8 @@
         android:id="@+id/ivMovieCover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_movie_image"
-        app:srcCompat="@drawable/placeholder_movie_vertical"
         android:scaleType="centerCrop"
-        />
+        app:srcCompat="@drawable/placeholder_movie_vertical" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvMovieName"

@@ -7,6 +7,7 @@ import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.dataagents.MovieDataAgent
 import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
 import com.thurainx.themovieapplication.network.responses.CreditListByMovieResponse
+import io.reactivex.rxjava3.core.Observable
 
 interface MovieModel {
 
@@ -46,4 +47,8 @@ interface MovieModel {
         onSuccess: (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
         onFail : (String) -> Unit
     )
+
+    fun searchMovies(
+        query: String,
+    ): Observable<List<MovieVO>>
 }

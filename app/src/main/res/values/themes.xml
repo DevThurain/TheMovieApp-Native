@@ -7,10 +7,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor"> @color/colorPrimaryDark</item>
         <!-- Customize your theme here. -->
+
     </style>
 
     <style name="Theme.TheMovieApplication.TransparentStatusBar" parent="Theme.TheMovieApplication">
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="TextInputLayoutStyle" parent="Theme.MaterialComponents">
+        <item name="boxStrokeColor">#ddd</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
 </resources>

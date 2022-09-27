@@ -72,4 +72,8 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
+    // rx binding
+    implementation 'com.jakewharton.rxbinding4:rxbinding-core:4.0.0'
+    implementation 'com.jakewharton.rxbinding4:rxbinding-appcompat:4.0.0'
+
 }

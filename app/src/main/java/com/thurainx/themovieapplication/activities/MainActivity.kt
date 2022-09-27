@@ -3,6 +3,7 @@ package com.thurainx.themovieapplication.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -152,6 +153,7 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
     }
 
     private fun setupShowcase() {
@@ -187,5 +189,13 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
 
     private fun showError(error: String) {
         Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.actionDiscover){
+            val intent = MovieSearchActivity.newIntent(this)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

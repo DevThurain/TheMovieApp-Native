@@ -64,4 +64,10 @@ interface TheMovieApi {
         @Path("movie_id") movieId: String,
         @Query(PARAM_API_KEY) apiKey: String = MOVIE_API_KEY,
     ) : Observable<CreditListByMovieResponse>
+
+    @GET(API_SEARCH_MOVIE)
+    fun searchMovies(
+        @Query(PARAM_API_KEY) apiKey: String = MOVIE_API_KEY,
+        @Query(PARAM_QUERY) query: String,
+    ) : Observable<MovieListResponse>
 }

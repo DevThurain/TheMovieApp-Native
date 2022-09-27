@@ -10,6 +10,7 @@ import com.thurainx.themovieapplication.network.dataagents.MovieDataAgent
 import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
 import com.thurainx.themovieapplication.utils.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -177,6 +178,15 @@ object MovieModelImpl : BasedModel(), MovieModel {
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
+
+    }
+
+    override fun searchMovies(query: String): Observable<List<MovieVO>> {
+        return mTheMovieApi.searchMovies(query = query)
+            .map{ it.results ?: listOf()}
+            .onErrorResumeNext { Observable.just(listOf()) }
+            .subscribeOn(Schedulers.io())
+
 
     }
 }
