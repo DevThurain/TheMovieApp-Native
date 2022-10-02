@@ -2,11 +2,11 @@ package com.thurainx.themovieapplication.activities
 
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.thurainx.themovieapplication.R
@@ -15,14 +15,16 @@ import com.thurainx.themovieapplication.data.models.MovieModelImpl
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
+import com.thurainx.themovieapplication.mvp.presenters.MovieDetailPresenter
+import com.thurainx.themovieapplication.mvp.presenters.MovieDetailPresenterImpl
+import com.thurainx.themovieapplication.mvp.views.MovieDetailView
 import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
 import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_movie_detail.*
-import kotlinx.android.synthetic.main.view_item_banner.view.*
 
 val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     companion object {
         fun newIntent(context: Context, movieId: Int?): Intent {
@@ -34,53 +36,51 @@ class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var mActorListViewPod: PersonListViewPod
     lateinit var mCreatorListViewPod: PersonListViewPod
-    val mMovieModel: MovieModel = MovieModelImpl
+
+    lateinit var movieDetailPresenter: MovieDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        setupPresenter()
+
         setupListeners()
         initViewPods()
 
-
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        requestData(movieId)
+        movieDetailPresenter.onUiReady(movieId = movieId, owner = this)
     }
 
-    private fun requestData(movieId: Int) {
-        mMovieModel.getMovieDetailById(
-            id = movieId.toString(),
-        ) {
-            showError(it)
-        }?.observe(this) {
-            bindData(it)
-        }
-
-        mMovieModel.getCreditByMovieId(
-            id = movieId.toString(),
-            onSuccess = {
-                bindViewPods(it.first, it.second)
-            },
-            onFail = {}
-        )
+    private fun setupPresenter(){
+        movieDetailPresenter = ViewModelProvider(this)[MovieDetailPresenterImpl::class.java]
+        movieDetailPresenter.initView(this)
     }
 
-    private fun bindData(movie: MovieVO) {
-        tvMovieDetailName.text = movie.title
-        collapsingToolbar.title = movie.title
-        tvVoteCount.text = movie.voteCount.toString().plus(" Voted")
-        tvRatingValue.text = movie.voteAverage.toString()
-        tvReleaseYear.text = movie.releaseDate?.substring(0, 4)
+
+    override fun showData(movieDetail: MovieVO) {
+        tvMovieDetailName.text = movieDetail.title
+        collapsingToolbar.title = movieDetail.title
+        tvVoteCount.text = movieDetail.voteCount.toString().plus(" Voted")
+        tvRatingValue.text = movieDetail.voteAverage.toString()
+        tvReleaseYear.text = movieDetail.releaseDate?.substring(0, 4)
         Glide.with(this)
-            .load(IMAGE_BASED_URL.plus(movie.posterPath))
+            .load(IMAGE_BASED_URL.plus(movieDetail.posterPath))
             .into(ivMovieDetail)
-        tvPlot.text = movie.overview.toString()
-        tvTitleText.text = movie.title
-        tvTypeText.text = movie.getGenreListString()
-        tvProductionText.text = movie.getCountryListString()
-        tvDescriptionText.text = movie.overview
-        bindGenres(movie.genres ?: listOf())
+        tvPlot.text = movieDetail.overview.toString()
+        tvTitleText.text = movieDetail.title
+        tvTypeText.text = movieDetail.getGenreListString()
+        tvProductionText.text = movieDetail.getCountryListString()
+        tvDescriptionText.text = movieDetail.overview
+        bindGenres(movieDetail.genres ?: listOf())
+    }
+
+    override fun showCastAndCrew(cast: List<ActorVO>, crew: List<ActorVO>) {
+        bindViewPods(castList = cast, creatorList = crew)
+    }
+
+    override fun navigateBack() {
+        super.onBackPressed()
     }
 
     private fun bindGenres(genres: List<GenreVO>) {
@@ -100,7 +100,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         flBack.setOnClickListener {
-            super.onBackPressed()
+            movieDetailPresenter.onTapBack()
         }
     }
 
@@ -138,8 +138,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun showError(error: String) {
-        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    override fun showError(msg: String) {
+        Snackbar.make(window.decorView, msg, Snackbar.LENGTH_SHORT).show()
     }
 
 }
