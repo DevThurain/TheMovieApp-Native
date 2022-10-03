@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.thurainx.themovieapplication.R
@@ -16,6 +17,8 @@ import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
+import com.thurainx.themovieapplication.viewmodels.MainViewModel
+import com.thurainx.themovieapplication.viewmodels.MovieDetailViewModel
 import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.view_item_banner.view.*
@@ -34,36 +37,35 @@ class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var mActorListViewPod: PersonListViewPod
     lateinit var mCreatorListViewPod: PersonListViewPod
-    val mMovieModel: MovieModel = MovieModelImpl
+
+    lateinit var movieDetailViewModel: MovieDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        setupViewModel(movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0))
+
         setupListeners()
-        initViewPods()
+        setupViewPods()
+
+        setupLiveData()
 
 
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        requestData(movieId)
     }
 
-    private fun requestData(movieId: Int) {
-        mMovieModel.getMovieDetailById(
-            id = movieId.toString(),
-        ) {
-            showError(it)
-        }?.observe(this) {
-            bindData(it)
-        }
+    private fun setupViewModel(movieId: Int) {
+        movieDetailViewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+        movieDetailViewModel.initViewModel(movieId = movieId)
+    }
 
-        mMovieModel.getCreditByMovieId(
-            id = movieId.toString(),
-            onSuccess = {
-                bindViewPods(it.first, it.second)
-            },
-            onFail = {}
-        )
+
+    private fun setupLiveData() {
+        movieDetailViewModel.movieDetailLiveData?.observe(this, this::bindData)
+        movieDetailViewModel.errorLiveData.observe(this, this::showError)
+        movieDetailViewModel.castAndCrewLiveData.observe(this){
+            bindViewPods(it.first, it.second)
+        }
     }
 
     private fun bindData(movie: MovieVO) {
@@ -104,7 +106,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPods() {
+    private fun setupViewPods() {
         mActorListViewPod = vpMovieDetailActorList as PersonListViewPod
         mCreatorListViewPod = vpMovieDetailCreatorList as PersonListViewPod
 
