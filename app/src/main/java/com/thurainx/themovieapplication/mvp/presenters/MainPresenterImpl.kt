@@ -70,6 +70,9 @@ class MainPresenterImpl : ViewModel(), MainPresenter {
                 mView?.showError(it)
             }
         )
+
+        mView?.showError("MVP Architecture")
+
     }
 
     private fun getMoviesByGenre(genreId: String) {
