@@ -1,12 +1,13 @@
 package com.thurainx.themovieapplication.mvp.presenters
 
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.interactors.MovieInteractor
 import com.thurainx.themovieapplication.interactors.MovieInteractorImpl
 import com.thurainx.themovieapplication.mvp.views.MainView
 
-object MainPresenterImpl : MainPresenter {
+class MainPresenterImpl : ViewModel(), MainPresenter {
     // view
     var mainView: MainView? = null
 

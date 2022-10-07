@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Message
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.thurainx.themovieapplication.R
@@ -16,6 +17,7 @@ import com.thurainx.themovieapplication.data.models.MovieModelImpl
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
+import com.thurainx.themovieapplication.mvp.presenters.MovieDetailPresenter
 import com.thurainx.themovieapplication.mvp.presenters.MovieDetailPresenterImpl
 import com.thurainx.themovieapplication.mvp.views.MovieDetailView
 import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
@@ -40,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     lateinit var mCreatorListViewPod: PersonListViewPod
 
     // presenter
-    private val movieDetailPresenter = MovieDetailPresenterImpl
+    private lateinit var movieDetailPresenter : MovieDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +59,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     private fun setupPresenter(){
+        movieDetailPresenter = ViewModelProvider(this)[MovieDetailPresenterImpl::class.java]
         movieDetailPresenter.initView(this)
     }
 

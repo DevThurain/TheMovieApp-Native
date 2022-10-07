@@ -6,6 +6,7 @@ import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.thurainx.themovieapplication.R
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity(), MainView {
     private lateinit var mActorListViewPod: PersonListViewPod
 
     // presenter
-    private val mainPresenter = MainPresenterImpl
+    private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private fun setupPresenter(){
+        mainPresenter = ViewModelProvider(this)[MainPresenterImpl::class.java]
         mainPresenter.initView(this)
         showMessage("Viper Architecture")
     }

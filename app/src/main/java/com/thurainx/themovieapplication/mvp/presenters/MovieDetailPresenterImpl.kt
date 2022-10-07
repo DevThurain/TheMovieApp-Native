@@ -1,10 +1,11 @@
 package com.thurainx.themovieapplication.mvp.presenters
 
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import com.thurainx.themovieapplication.interactors.MovieInteractorImpl
 import com.thurainx.themovieapplication.mvp.views.MovieDetailView
 
-object MovieDetailPresenterImpl: MovieDetailPresenter {
+object MovieDetailPresenterImpl: ViewModel(),MovieDetailPresenter {
     // view
     var movieDetailView: MovieDetailView? = null
     // interactor
