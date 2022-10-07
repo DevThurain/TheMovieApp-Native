@@ -2,6 +2,7 @@ package com.thurainx.themovieapplication.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -12,11 +13,14 @@ import com.thurainx.themovieapplication.adapters.BannerAdapter
 import com.thurainx.themovieapplication.adapters.ShowcaseAdapter
 import com.thurainx.themovieapplication.data.models.MovieModel
 import com.thurainx.themovieapplication.data.models.MovieModelImpl
+import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
+import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.delegates.BannerDelegate
 import com.thurainx.themovieapplication.delegates.MovieDelegate
 import com.thurainx.themovieapplication.delegates.ShowcaseDelegate
 import com.thurainx.themovieapplication.dummy.dummyGeneresList
+import com.thurainx.themovieapplication.mvp.views.MainView
 import com.thurainx.themovieapplication.network.dataagents.MovieDataAgentImpl
 import com.thurainx.themovieapplication.network.dataagents.OkhttpDataAgentImpl
 import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
@@ -24,7 +28,7 @@ import com.thurainx.themovieapplication.viewpods.MovieListViewPod
 import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, ShowcaseDelegate {
+class MainActivity : AppCompatActivity(), MainView {
     lateinit var mBannerAdapter: BannerAdapter
     lateinit var mShowcaseAdapter: ShowcaseAdapter
     lateinit var mBestAndPopularMovieListViewPod: MovieListViewPod
@@ -187,8 +191,36 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         startActivity(intent)
     }
 
-    private fun showError(error: String) {
-        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    override fun showNowPlayingMovies(movieList: List<MovieVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showPopularMovies(movieList: List<MovieVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showTopRatedMovies(movieList: List<MovieVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showGenreList(genreList: List<GenreVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showMoviesByGenre(movieList: List<MovieVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToMovieDetail(movieId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showActors(actorList: List<ActorVO>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showError(message: String) {
+        Snackbar.make(window.decorView, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
