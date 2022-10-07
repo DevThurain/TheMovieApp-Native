@@ -5,6 +5,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -15,14 +16,16 @@ import com.thurainx.themovieapplication.data.models.MovieModelImpl
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
+import com.thurainx.themovieapplication.mvp.presenters.MovieDetailPresenterImpl
+import com.thurainx.themovieapplication.mvp.views.MovieDetailView
 import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
 import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.view_item_banner.view.*
 
-val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
+const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     companion object {
         fun newIntent(context: Context, movieId: Int?): Intent {
@@ -32,56 +35,31 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
+    // viewpods
     lateinit var mActorListViewPod: PersonListViewPod
     lateinit var mCreatorListViewPod: PersonListViewPod
-    val mMovieModel: MovieModel = MovieModelImpl
+
+    // presenter
+    private val movieDetailPresenter = MovieDetailPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        setupPresenter()
+
         setupListeners()
         initViewPods()
 
-
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        requestData(movieId)
+        movieDetailPresenter.onUiReadyMovieDetail(movieId = movieId, this)
+
     }
 
-    private fun requestData(movieId: Int) {
-        mMovieModel.getMovieDetailById(
-            id = movieId.toString(),
-        ) {
-            showError(it)
-        }?.observe(this) {
-            bindData(it)
-        }
-
-        mMovieModel.getCreditByMovieId(
-            id = movieId.toString(),
-            onSuccess = {
-                bindViewPods(it.first, it.second)
-            },
-            onFail = {}
-        )
+    private fun setupPresenter(){
+        movieDetailPresenter.initView(this)
     }
 
-    private fun bindData(movie: MovieVO) {
-        tvMovieDetailName.text = movie.title
-        collapsingToolbar.title = movie.title
-        tvVoteCount.text = movie.voteCount.toString().plus(" Voted")
-        tvRatingValue.text = movie.voteAverage.toString()
-        tvReleaseYear.text = movie.releaseDate?.substring(0, 4)
-        Glide.with(this)
-            .load(IMAGE_BASED_URL.plus(movie.posterPath))
-            .into(ivMovieDetail)
-        tvPlot.text = movie.overview.toString()
-        tvTitleText.text = movie.title
-        tvTypeText.text = movie.getGenreListString()
-        tvProductionText.text = movie.getCountryListString()
-        tvDescriptionText.text = movie.overview
-        bindGenres(movie.genres ?: listOf())
-    }
 
     private fun bindGenres(genres: List<GenreVO>) {
         if (genres.size >= 1) {
@@ -100,7 +78,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         flBack.setOnClickListener {
-            super.onBackPressed()
+            movieDetailPresenter.onTapBack()
         }
     }
 
@@ -138,8 +116,33 @@ class MovieDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun showError(error: String) {
-        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    override fun showMovieData(movie: MovieVO) {
+        tvMovieDetailName.text = movie.title
+        collapsingToolbar.title = movie.title
+        tvVoteCount.text = movie.voteCount.toString().plus(getString(R.string.lbl_voted))
+        tvRatingValue.text = movie.voteAverage.toString()
+        tvReleaseYear.text = movie.releaseDate?.substring(0, 4)
+        Glide.with(this)
+            .load(IMAGE_BASED_URL.plus(movie.posterPath))
+            .into(ivMovieDetail)
+        tvPlot.text = movie.overview.toString()
+        tvTitleText.text = movie.title
+        tvTypeText.text = movie.getGenreListString()
+        tvProductionText.text = movie.getCountryListString()
+        tvDescriptionText.text = movie.overview
+        bindGenres(movie.genres ?: listOf())
+    }
+
+    override fun showCastsAndCrews(casts: List<ActorVO>, crews: List<ActorVO>) {
+        bindViewPods(castList = casts, creatorList = crews)
+    }
+
+    override fun navigateBack() {
+        super.onBackPressed()
+    }
+
+    override fun showError(message: String) {
+        Snackbar.make(window.decorView, message, Snackbar.LENGTH_SHORT).show()
     }
 
 }

@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun setupPresenter(){
         mainPresenter.initView(this)
+        showMessage("Viper Architecture")
     }
 
 
@@ -155,6 +156,10 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun showError(message: String) {
+        Snackbar.make(window.decorView, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun showMessage(message: String){
         Snackbar.make(window.decorView, message, Snackbar.LENGTH_SHORT).show()
     }
 
