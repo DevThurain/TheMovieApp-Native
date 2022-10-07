@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), MainView {
     private fun setupPresenter(){
         mainPresenter = ViewModelProvider(this)[MainPresenterImpl::class.java]
         mainPresenter.initView(this)
+        showMessage("MVP Architecture")
     }
 
     private fun setupActionBar() {
@@ -138,6 +139,10 @@ class MainActivity : AppCompatActivity(), MainView {
         startActivity(intent)    }
 
     override fun showError(msg: String) {
+        Snackbar.make(window.decorView, msg, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showMessage(msg: String) {
         Snackbar.make(window.decorView, msg, Snackbar.LENGTH_SHORT).show()
     }
 
