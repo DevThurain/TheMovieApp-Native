@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.thurainx.themovieapplication.interactors.MovieInteractorImpl
 import com.thurainx.themovieapplication.mvp.views.MovieDetailView
 
-object MovieDetailPresenterImpl: ViewModel(),MovieDetailPresenter {
+class MovieDetailPresenterImpl: ViewModel(),MovieDetailPresenter {
     // view
     var movieDetailView: MovieDetailView? = null
     // interactor
