@@ -10,6 +10,6 @@ interface MainView: BasedView {
     fun showTopRatedMovies(movieList: List<MovieVO>)
     fun showGenreList(genreList: List<GenreVO>)
     fun showMoviesByGenre(movieList: List<MovieVO>)
-    fun navigateToMovieDetail(movieId: Int)
     fun showActors(actorList: List<ActorVO>)
+    fun navigateToMovieDetailScreen(movieId: Int)
 }

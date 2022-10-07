@@ -6,7 +6,7 @@ import com.thurainx.themovieapplication.interactors.MovieInteractor
 import com.thurainx.themovieapplication.interactors.MovieInteractorImpl
 import com.thurainx.themovieapplication.mvp.views.MainView
 
-class MainPresenterImpl : MainPresenter {
+object MainPresenterImpl : MainPresenter {
     // view
     var mainView: MainView? = null
 
@@ -84,19 +84,19 @@ class MainPresenterImpl : MainPresenter {
 
     override fun onTapBanner(movieId: Int?) {
         movieId?.let {
-            mainView?.navigateToMovieDetail(it)
+            mainView?.navigateToMovieDetailScreen(it)
         }
     }
 
     override fun onTapShowcase(movieId: Int?) {
         movieId?.let {
-            mainView?.navigateToMovieDetail(it)
+            mainView?.navigateToMovieDetailScreen(it)
         }
     }
 
     override fun onTapMovie(movieId: Int?) {
         movieId?.let {
-            mainView?.navigateToMovieDetail(it)
+            mainView?.navigateToMovieDetailScreen(it)
         }
     }
 }
