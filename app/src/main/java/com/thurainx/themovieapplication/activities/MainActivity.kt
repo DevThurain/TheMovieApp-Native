@@ -153,8 +153,8 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun showMessage(error: String) {
-        Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    private fun showMessage(message: String) {
+        Snackbar.make(window.decorView, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
