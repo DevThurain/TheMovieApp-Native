@@ -21,9 +21,6 @@ class MainPresenterImpl : ViewModel(), MainPresenter {
         mView = view
     }
 
-
-
-
     override fun onUiReady(owner: LifecycleOwner) {
         // now playing
         mMovieModel.getNowPlayingMovies { msg ->
