@@ -39,7 +39,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 onFail(it.localizedMessage ?: "unknown error")
             })
 
-        return mMovieDatabase?.movieDao()?.getMoviesByType(NOW_PLAYING)
+        return mMovieDatabase?.movieDao()?.getMoviesByTypeLiveData(NOW_PLAYING)
 
     }
 
@@ -57,7 +57,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 onFail(it.localizedMessage ?: "unknown error")
             })
 
-        return mMovieDatabase?.movieDao()?.getMoviesByType(POPULAR)
+        return mMovieDatabase?.movieDao()?.getMoviesByTypeLiveData(POPULAR)
 
     }
 
@@ -75,7 +75,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 onFail(it.localizedMessage ?: "unknown error")
             })
 
-        return mMovieDatabase?.movieDao()?.getMoviesByType(TOP_RATED)
+        return mMovieDatabase?.movieDao()?.getMoviesByTypeLiveData(TOP_RATED)
     }
 
     override fun getGenresList(onSuccess: (List<GenreVO>) -> Unit, onFail: (String) -> Unit) {
@@ -142,7 +142,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 onFail(it.localizedMessage ?: "unknown error")
             })
 
-        return mMovieDatabase?.movieDao()?.getMovieById(id.toInt())
+        return mMovieDatabase?.movieDao()?.getMovieByIdLiveData(id.toInt())
     }
 
     override fun getCreditByMovieId(
@@ -187,6 +187,52 @@ object MovieModelImpl : BasedModel(), MovieModel {
             .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
 
+    }
 
+    override fun getNowPlayingMoviesObservable(): Observable<List<MovieVO>>? {
+        return mTheMovieApi.getNowPlayingMovieList()
+            .map { it.results ?: listOf() }
+            .subscribeOn(Schedulers.io())
+
+    }
+
+    override fun getPopularMoviesObservable(): Observable<List<MovieVO>>? {
+        return mTheMovieApi.getPopularMovieList()
+            .map { it.results ?: listOf() }
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun getTopRatedMoviesObservable(): Observable<List<MovieVO>>? {
+        return mTheMovieApi.getTopRatedMovieList()
+            .map { it.results ?: listOf() }
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun getGenresListObservable(): Observable<List<GenreVO>>? {
+        return mTheMovieApi.getGenresList()
+            .map { it.genres ?: listOf() }
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun getMoviesByGeneresObservable(genreId: String): Observable<List<MovieVO>>? {
+        return mTheMovieApi.getMoviesByGenre(genreId = genreId)
+            .map { it.results ?: listOf() }
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun getActorListObservable(): Observable<List<ActorVO>>? {
+        return mTheMovieApi.getActorList()
+            .map { it.results ?: listOf() }
+            .subscribeOn(Schedulers.io())        }
+
+    override fun getMovieDetailByIdObservable(id: String): Observable<MovieVO>? {
+        return mTheMovieApi.getMovieById(movie_id = id)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun getCreditByMovieIdObservable(id: String): Observable<Pair<List<ActorVO>, List<ActorVO>>>? {
+        return mTheMovieApi.getCreditByMovieId(movieId = id)
+            .map { Pair(it.cast ?: listOf(),it.crew ?: listOf()) }
+            .subscribeOn(Schedulers.io())
     }
 }
