@@ -11,7 +11,8 @@ data class MainState(
     val topRatedMovieList: List<MovieVO>,
     val genreList: List<GenreVO>,
     val movieListByGenre: List<MovieVO>,
-    val actorList: List<ActorVO>
+    val actorList: List<ActorVO>,
+    val errorMessage: String
 ) : MVIState{
     companion object{
         fun idle(): MainState = MainState(
@@ -20,7 +21,8 @@ data class MainState(
             topRatedMovieList = listOf(),
             genreList = listOf(),
             movieListByGenre = listOf(),
-            actorList = listOf()
+            actorList = listOf(),
+            errorMessage = ""
         )
     }
 }
