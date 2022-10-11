@@ -8,6 +8,7 @@ import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.network.dataagents.MovieDataAgent
 import com.thurainx.themovieapplication.network.dataagents.RetrofitDataAgentImpl
+import com.thurainx.themovieapplication.network.responses.MovieListResponse
 import com.thurainx.themovieapplication.utils.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -191,10 +192,12 @@ object MovieModelImpl : BasedModel(), MovieModel {
 
     override fun getNowPlayingMoviesObservable(): Observable<List<MovieVO>>? {
         mTheMovieApi.getNowPlayingMovieList()
+            .map { it.results ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                response.results?.forEach {
+            .subscribe { movieList ->
+                movieList.forEach {
                     it.type = NOW_PLAYING
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
@@ -206,10 +209,12 @@ object MovieModelImpl : BasedModel(), MovieModel {
 
     override fun getPopularMoviesObservable(): Observable<List<MovieVO>>? {
         mTheMovieApi.getPopularMovieList()
+            .map { it.results ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                response.results?.forEach {
+            .subscribe { movieList ->
+                movieList.forEach {
                     it.type = POPULAR
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
@@ -220,10 +225,12 @@ object MovieModelImpl : BasedModel(), MovieModel {
 
     override fun getTopRatedMoviesObservable(): Observable<List<MovieVO>>? {
         mTheMovieApi.getTopRatedMovieList()
+            .map { it.results ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                response.results?.forEach {
+            .subscribe { movieList ->
+               movieList.forEach {
                     it.type = TOP_RATED
                     mMovieDatabase?.movieDao()?.insertSingleMovie(it)
                 }
@@ -235,18 +242,21 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getGenresListObservable(): Observable<List<GenreVO>>? {
         return mTheMovieApi.getGenresList()
             .map { it.genres ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getMoviesByGeneresObservable(genreId: String): Observable<List<MovieVO>>? {
         return mTheMovieApi.getMoviesByGenre(genreId = genreId)
             .map { it.results ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getActorListObservable(): Observable<List<ActorVO>>? {
         return mTheMovieApi.getActorList()
             .map { it.results ?: listOf() }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())        }
 
     override fun getMovieDetailByIdObservable(id: String): Observable<MovieVO>? {
