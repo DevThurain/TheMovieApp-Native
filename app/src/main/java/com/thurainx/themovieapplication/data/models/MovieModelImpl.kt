@@ -1,6 +1,7 @@
 package com.thurainx.themovieapplication.data.models
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.thurainx.themovieapplication.persistence.MovieDatabase
 import com.thurainx.themovieapplication.data.vos.ActorVO
@@ -242,21 +243,30 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getGenresListObservable(): Observable<List<GenreVO>>? {
         return mTheMovieApi.getGenresList()
             .map { it.genres ?: listOf() }
-            .onErrorResumeNext { Observable.just(listOf()) }
+//            .onErrorResumeNext { Observable.just(listOf()) }
+            .onErrorReturn { throwable ->
+                Log.d("observable_error",throwable.localizedMessage ?: "unknown genreList error")
+                listOf()
+            }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getMoviesByGeneresObservable(genreId: String): Observable<List<MovieVO>>? {
         return mTheMovieApi.getMoviesByGenre(genreId = genreId)
             .map { it.results ?: listOf() }
-            .onErrorResumeNext { Observable.just(listOf()) }
+//            .onErrorResumeNext { Observable.just(listOf()) }
+            .doOnError { throwable ->
+                Log.d("observable_error",throwable.localizedMessage ?: "unknown movieList by genre error")
+            }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getActorListObservable(): Observable<List<ActorVO>>? {
         return mTheMovieApi.getActorList()
             .map { it.results ?: listOf() }
-            .onErrorResumeNext { Observable.just(listOf()) }
+            .doOnError { throwable ->
+                Log.d("observable_error",throwable.localizedMessage ?: "unknown actorList error")
+            }
             .subscribeOn(Schedulers.io())        }
 
     override fun getMovieDetailByIdObservable(id: String): Observable<MovieVO>? {

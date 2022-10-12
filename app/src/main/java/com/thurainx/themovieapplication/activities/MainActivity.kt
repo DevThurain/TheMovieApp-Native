@@ -163,6 +163,7 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
     }
 
     override fun render(state: MainState) {
+        state
         if(state.errorMessage.isNotEmpty()){
             showError(state.errorMessage)
         }
@@ -170,9 +171,11 @@ class MainActivity : AppCompatActivity(), BannerDelegate, MovieDelegate, Showcas
         mBannerAdapter.setNewData(state.nowPlayingMovieList)
         mBestAndPopularMovieListViewPod.setData(state.popularMovieList)
         mShowcaseAdapter.setNewData(state.topRatedMovieList)
-        setupGeneresTabLayout(state.genreList)
         mActorListViewPod.setData(state.actorList)
         mGeneresMovieListViewPod.setData(state.movieListByGenre)
+
+        if(tabLayoutGeneres.tabCount == 0)
+        setupGeneresTabLayout(state.genreList)
 
 
     }

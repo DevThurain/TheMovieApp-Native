@@ -32,6 +32,16 @@ object MainProcessor {
             )
 
         }
+            .onErrorReturn { throwable ->
+                previousState.copy(
+                    errorMessage = throwable.localizedMessage ?: "Unknown Observer Error In Processor",
+                    nowPlayingMovieList = previousState.nowPlayingMovieList,
+                    popularMovieList = previousState.popularMovieList,
+                    topRatedMovieList = previousState.topRatedMovieList,
+                    genreList = previousState.genreList,
+                    actorList = previousState.actorList
+                )
+            }
             .toFlowable(BackpressureStrategy.BUFFER)
             .toLiveData()
     }
@@ -46,6 +56,16 @@ object MainProcessor {
                 genreList = previousState.genreList,
                 actorList = previousState.actorList
             ) }
+            ?.onErrorReturn { throwable ->
+                previousState.copy(
+                    errorMessage = throwable.localizedMessage ?: "Unknown Observer Error In Processor",
+                    nowPlayingMovieList = previousState.nowPlayingMovieList,
+                    popularMovieList = previousState.popularMovieList,
+                    topRatedMovieList = previousState.topRatedMovieList,
+                    genreList = previousState.genreList,
+                    actorList = previousState.actorList
+                )
+            }
             ?.subscribeOn(Schedulers.io())
             ?.toFlowable(BackpressureStrategy.BUFFER)
             ?.toLiveData()!!
