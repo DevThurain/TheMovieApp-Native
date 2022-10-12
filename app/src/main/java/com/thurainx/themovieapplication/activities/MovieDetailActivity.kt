@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.thurainx.themovieapplication.R
@@ -15,6 +16,11 @@ import com.thurainx.themovieapplication.data.models.MovieModelImpl
 import com.thurainx.themovieapplication.data.vos.ActorVO
 import com.thurainx.themovieapplication.data.vos.GenreVO
 import com.thurainx.themovieapplication.data.vos.MovieVO
+import com.thurainx.themovieapplication.mvi.intent.MovieDetailIntent
+import com.thurainx.themovieapplication.mvi.mviBased.MVIView
+import com.thurainx.themovieapplication.mvi.state.MovieDetailState
+import com.thurainx.themovieapplication.mvi.viewmodel.MainViewModel
+import com.thurainx.themovieapplication.mvi.viewmodel.MovieDetailViewModel
 import com.thurainx.themovieapplication.utils.IMAGE_BASED_URL
 import com.thurainx.themovieapplication.viewpods.PersonListViewPod
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -22,7 +28,7 @@ import kotlinx.android.synthetic.main.view_item_banner.view.*
 
 val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MVIView<MovieDetailState> {
 
     companion object {
         fun newIntent(context: Context, movieId: Int?): Intent {
@@ -34,36 +40,33 @@ class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var mActorListViewPod: PersonListViewPod
     lateinit var mCreatorListViewPod: PersonListViewPod
-    val mMovieModel: MovieModel = MovieModelImpl
+
+    private lateinit var movieDetailViewModel: MovieDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        setupViewModel()
+
         setupListeners()
         initViewPods()
 
-
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        requestData(movieId)
+        setupInitialIntent()
+        observeState()
     }
 
-    private fun requestData(movieId: Int) {
-        mMovieModel.getMovieDetailById(
-            id = movieId.toString(),
-        ) {
-            showError(it)
-        }?.observe(this) {
-            bindData(it)
-        }
+    private fun setupViewModel(){
+        movieDetailViewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+    }
 
-        mMovieModel.getCreditByMovieId(
-            id = movieId.toString(),
-            onSuccess = {
-                bindViewPods(it.first, it.second)
-            },
-            onFail = {}
-        )
+    private fun setupInitialIntent(){
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
+        movieDetailViewModel.processIntent(intent = MovieDetailIntent.getMovieDetailByMovieId(id = movieId), owner = this)
+    }
+
+    private fun observeState(){
+        movieDetailViewModel.state.observe(this, this::render)
     }
 
     private fun bindData(movie: MovieVO) {
@@ -140,6 +143,18 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun showError(error: String) {
         Snackbar.make(window.decorView, error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun render(state: MovieDetailState) {
+        if(state.errorMessage.isNotEmpty()){
+            showError(state.errorMessage)
+        }
+
+        state.movieData?.let {
+            bindData(movie = it)
+        }
+
+        bindViewPods(castList = state.castList, creatorList = state.crewList)
     }
 
 }

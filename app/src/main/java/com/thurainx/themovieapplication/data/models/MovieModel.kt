@@ -63,4 +63,5 @@ interface MovieModel {
     fun getActorListObservable(): Observable<List<ActorVO>>?
     fun getMovieDetailByIdObservable(id: String): Observable<MovieVO>?
     fun getCreditByMovieIdObservable(id: String) : Observable<Pair<List<ActorVO>, List<ActorVO>>>?
+
 }

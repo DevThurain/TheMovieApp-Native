@@ -8,7 +8,7 @@ import com.thurainx.themovieapplication.mvi.mviBased.MVIViewModel
 import com.thurainx.themovieapplication.mvi.processor.MainProcessor
 import com.thurainx.themovieapplication.mvi.state.MainState
 
-class MainViewModel(override var state: MutableLiveData<MainState> = MutableLiveData(MainState.idle())) :
+class MainViewModel(override val state: MutableLiveData<MainState> = MutableLiveData(MainState.idle())) :
     MVIViewModel<MainState, MainIntent>, ViewModel() {
 
     private val mainProcessor = MainProcessor
