@@ -58,21 +58,21 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
 
-    override fun showData(movieDetail: MovieVO) {
-        tvMovieDetailName.text = movieDetail.title
-        collapsingToolbar.title = movieDetail.title
-        tvVoteCount.text = movieDetail.voteCount.toString().plus(" Voted")
-        tvRatingValue.text = movieDetail.voteAverage.toString()
-        tvReleaseYear.text = movieDetail.releaseDate?.substring(0, 4)
+    override fun showData(movieDetail: MovieVO?) {
+        tvMovieDetailName.text = movieDetail?.title
+        collapsingToolbar.title = movieDetail?.title
+        tvVoteCount.text = movieDetail?.voteCount.toString().plus(" Voted")
+        tvRatingValue.text = movieDetail?.voteAverage.toString()
+        tvReleaseYear.text = movieDetail?.releaseDate?.substring(0, 4)
         Glide.with(this)
-            .load(IMAGE_BASED_URL.plus(movieDetail.posterPath))
+            .load(IMAGE_BASED_URL.plus(movieDetail?.posterPath))
             .into(ivMovieDetail)
-        tvPlot.text = movieDetail.overview.toString()
-        tvTitleText.text = movieDetail.title
-        tvTypeText.text = movieDetail.getGenreListString()
-        tvProductionText.text = movieDetail.getCountryListString()
-        tvDescriptionText.text = movieDetail.overview
-        bindGenres(movieDetail.genres ?: listOf())
+        tvPlot.text = movieDetail?.overview.toString()
+        tvTitleText.text = movieDetail?.title
+        tvTypeText.text = movieDetail?.getGenreListString()
+        tvProductionText.text = movieDetail?.getCountryListString()
+        tvDescriptionText.text = movieDetail?.overview
+        bindGenres(movieDetail?.genres ?: listOf())
     }
 
     override fun showCastAndCrew(cast: List<ActorVO>, crew: List<ActorVO>) {

@@ -23,8 +23,8 @@ class MovieDetailPresenterImpl: ViewModel(), MovieDetailPresenter {
         ) {
             mView?.showError(it)
         }?.observe(owner) {
-            it
-            mView?.showData(movieDetail = it)
+                mView?.showData(movieDetail = it)
+
         }
 
         // cast & crew

@@ -124,7 +124,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getMovieDetailById(
         id: String,
         onFail: (String) -> Unit
-    ): LiveData<MovieVO>? {
+    ): LiveData<MovieVO?>? {
 
 
         mTheMovieApi.getMovieById(movie_id = id)
@@ -134,10 +134,9 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 val movieFromDBToSync: MovieVO? =
                     mMovieDatabase?.movieDao()?.getOneTimeMovieById(id.toInt())
 
-                movieFromDBToSync?.let {
-                    response.type = it.type
+                    response.type = movieFromDBToSync?.type
                     mMovieDatabase?.movieDao()?.insertSingleMovie(response)
-                }
+
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })
