@@ -1,6 +1,7 @@
 package com.thurainx.themovieapplication.data.models
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.thurainx.themovieapplication.persistence.MovieDatabase
 import com.thurainx.themovieapplication.data.vos.ActorVO
@@ -124,20 +125,22 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getMovieDetailById(
         id: String,
         onFail: (String) -> Unit
-    ): LiveData<MovieVO>? {
-
+    ): LiveData<MovieVO?>? {
 
         mTheMovieApi.getMovieById(movie_id = id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { error ->
+                Log.d("error",error.localizedMessage.toString())
+            }
             .subscribe({ response ->
                 val movieFromDBToSync: MovieVO? =
                     mMovieDatabase?.movieDao()?.getOneTimeMovieById(id.toInt())
 
-                movieFromDBToSync?.let {
-                    response.type = it.type
+                    response.type = movieFromDBToSync?.type
+
                     mMovieDatabase?.movieDao()?.insertSingleMovie(response)
-                }
+
             }, {
                 onFail(it.localizedMessage ?: "unknown error")
             })

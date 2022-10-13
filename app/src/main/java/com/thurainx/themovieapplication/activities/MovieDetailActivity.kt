@@ -5,6 +5,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -45,6 +46,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
+        Log.d("movieId",movieId.toString())
         requestData(movieId)
     }
 
@@ -54,7 +56,10 @@ class MovieDetailActivity : AppCompatActivity() {
         ) {
             showError(it)
         }?.observe(this) {
-            bindData(it)
+            it
+            it?.let {
+                bindData(it)
+            }
         }
 
         mMovieModel.getCreditByMovieId(
