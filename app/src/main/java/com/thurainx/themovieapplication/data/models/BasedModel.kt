@@ -3,6 +3,7 @@ package com.thurainx.themovieapplication.data.models
 import android.content.Context
 import com.thurainx.themovieapplication.network.TheMovieApi
 import com.thurainx.themovieapplication.persistence.MovieDatabase
+import com.thurainx.themovieapplication.persistence.daos.MovieDao
 import com.thurainx.themovieapplication.utils.BASED_URL
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -15,6 +16,8 @@ abstract class BasedModel {
 
     /* Database */
     protected var mMovieDatabase: MovieDatabase? = null
+
+    protected var mMovieDao: MovieDao? = null
 
 
     init {
@@ -36,6 +39,7 @@ abstract class BasedModel {
     }
 
     fun initDatabase(context: Context) {
-        MovieModelImpl.mMovieDatabase = MovieDatabase.getDBInstant(context)
+        mMovieDatabase = MovieDatabase.getDBInstant(context)
+        mMovieDao = mMovieDatabase?.movieDao()
     }
 }

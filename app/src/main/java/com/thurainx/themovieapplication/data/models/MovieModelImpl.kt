@@ -27,6 +27,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
 //        mMovieDatabase = MovieDatabase.getDBInstant(context)
 //    }
 
+
     override fun getNowPlayingMovies(onFail: (String) -> Unit): LiveData<List<MovieVO>>? {
 
         mTheMovieApi.getNowPlayingMovieList()
@@ -200,11 +201,13 @@ object MovieModelImpl : BasedModel(), MovieModel {
             .subscribe { movieList ->
                 movieList.forEach {
                     it.type = NOW_PLAYING
-                    mMovieDatabase?.movieDao()?.insertSingleMovie(it)
+                    Log.d("movie",it.originalTitle.toString())
+                    mMovieDao?.insertSingleMovie(it)
                 }
+
             }
 
-        return mMovieDatabase?.movieDao()?.getMoviesByTypeFlowable(NOW_PLAYING)?.toObservable()
+        return mMovieDao?.getMoviesByTypeFlowable(NOW_PLAYING)?.toObservable()
 
     }
 
@@ -217,11 +220,11 @@ object MovieModelImpl : BasedModel(), MovieModel {
             .subscribe { movieList ->
                 movieList.forEach {
                     it.type = POPULAR
-                    mMovieDatabase?.movieDao()?.insertSingleMovie(it)
+                    mMovieDao?.insertSingleMovie(it)
                 }
             }
 
-        return mMovieDatabase?.movieDao()?.getMoviesByTypeFlowable(POPULAR)?.toObservable()
+        return mMovieDao?.getMoviesByTypeFlowable(POPULAR)?.toObservable()
     }
 
     override fun getTopRatedMoviesObservable(): Observable<List<MovieVO>>? {
@@ -233,11 +236,11 @@ object MovieModelImpl : BasedModel(), MovieModel {
             .subscribe { movieList ->
                movieList.forEach {
                     it.type = TOP_RATED
-                    mMovieDatabase?.movieDao()?.insertSingleMovie(it)
+                    mMovieDao?.insertSingleMovie(it)
                 }
             }
 
-        return mMovieDatabase?.movieDao()?.getMoviesByTypeFlowable(TOP_RATED)?.toObservable()
+        return mMovieDao?.getMoviesByTypeFlowable(TOP_RATED)?.toObservable()
     }
 
     override fun getGenresListObservable(): Observable<List<GenreVO>>? {
@@ -276,15 +279,17 @@ object MovieModelImpl : BasedModel(), MovieModel {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { response ->
                 val movieFromDBToSync: MovieVO? =
-                    mMovieDatabase?.movieDao()?.getOneTimeMovieById(id.toInt())
+                    mMovieDao?.getOneTimeMovieById(id.toInt())
 
                 movieFromDBToSync?.let {
                     response.type = it.type
-                    mMovieDatabase?.movieDao()?.insertSingleMovie(response)
+                    mMovieDao?.insertSingleMovie(response)
                 }
+                Log.d("db_movie",response.productionCompanies?.size.toString())
+
             }
 
-        return mMovieDatabase?.movieDao()?.getMovieByIdFlowable(id.toInt())?.toObservable()
+        return mMovieDao?.getMovieByIdFlowable(id.toInt())?.toObservable()
     }
 
     override fun getCreditByMovieIdObservable(id: String): Observable<Pair<List<ActorVO>, List<ActorVO>>>? {

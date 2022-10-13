@@ -9,22 +9,38 @@ import com.thurainx.themovieapplication.data.vos.MovieVO
 import com.thurainx.themovieapplication.persistence.daos.ActorDao
 import com.thurainx.themovieapplication.persistence.daos.MovieDao
 
+
 @Database(entities = [MovieVO::class, ActorVO::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
     companion object{
         const val DB_NAME = "THE_MOVIE_DATABASE"
+
+        @Volatile
         var dbInstant : MovieDatabase? = null
 
         fun getDBInstant(context: Context) : MovieDatabase?{
-            when(dbInstant){
-                null -> {
-                    dbInstant = Room.databaseBuilder(context, MovieDatabase::class.java, DB_NAME)
-                        .allowMainThreadQueries()
-                        .fallbackToDestructiveMigration()
-                        .build()
-                }
+//            when(dbInstant){
+//                null -> {
+//                    dbInstant = Room.databaseBuilder(context, MovieDatabase::class.java, DB_NAME)
+//                        .allowMainThreadQueries()
+//                        .fallbackToDestructiveMigration()
+//                        .build()
+//                }
+//            }
+//            return dbInstant
+
+            return dbInstant ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    MovieDatabase::class.java,
+                    DB_NAME
+                )
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .build()
+                dbInstant = instance
+                instance//this return instance
             }
-            return dbInstant
         }
     }
 
