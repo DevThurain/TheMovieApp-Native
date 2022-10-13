@@ -281,10 +281,9 @@ object MovieModelImpl : BasedModel(), MovieModel {
                 val movieFromDBToSync: MovieVO? =
                     mMovieDao?.getOneTimeMovieById(id.toInt())
 
-                movieFromDBToSync?.let {
-                    response.type = it.type
+                    response.type = movieFromDBToSync?.type
                     mMovieDao?.insertSingleMovie(response)
-                }
+
                 Log.d("db_movie",response.productionCompanies?.size.toString())
 
             }
