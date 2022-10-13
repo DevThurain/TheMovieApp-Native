@@ -18,7 +18,6 @@ class MainViewModel(override val state: MutableLiveData<MainState> = MutableLive
         when (intent) {
             is MainIntent.getHomePageData -> {
                 state.value?.let {
-
                     mainProcessor.getHomePageData(previousState = it).observe(owner) { newState ->
                         if (newState.genreList.isNotEmpty()) {
                             processIntent(intent = MainIntent.getMovieListByGenre(0), owner)
