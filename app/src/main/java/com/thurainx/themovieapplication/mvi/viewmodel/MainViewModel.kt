@@ -1,5 +1,6 @@
 package com.thurainx.themovieapplication.mvi.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,11 +18,12 @@ class MainViewModel(override val state: MutableLiveData<MainState> = MutableLive
         when (intent) {
             is MainIntent.getHomePageData -> {
                 state.value?.let {
+
                     mainProcessor.getHomePageData(previousState = it).observe(owner) { newState ->
-                        state.postValue(newState)
                         if (newState.genreList.isNotEmpty()) {
                             processIntent(intent = MainIntent.getMovieListByGenre(0), owner)
                         }
+                        state.postValue(newState)
                     }
                 }
             }

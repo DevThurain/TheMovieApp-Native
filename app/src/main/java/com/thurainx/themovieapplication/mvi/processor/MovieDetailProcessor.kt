@@ -12,11 +12,11 @@ object MovieDetailProcessor {
     private val mMovieModel = MovieModelImpl
 
     fun getMovieDetailByMovieId(id: Int): LiveData<MovieDetailState> {
-        return Observable.zip(
+        return Observable.combineLatest(
             mMovieModel.getMovieDetailByIdObservable(id = id.toString()),
             mMovieModel.getCreditByMovieIdObservable(id = id.toString()),
         ) { movieVO, creditPair ->
-            return@zip MovieDetailState(
+            return@combineLatest MovieDetailState(
                 movieData = movieVO,
                 castList = creditPair.first,
                 crewList = creditPair.second,

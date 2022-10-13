@@ -222,6 +222,8 @@ object MovieModelImpl : BasedModel(), MovieModel {
                     it.type = POPULAR
                     mMovieDao?.insertSingleMovie(it)
                 }
+                Log.d("call_api", "i am called.")
+
             }
 
         return mMovieDao?.getMoviesByTypeFlowable(POPULAR)?.toObservable()
