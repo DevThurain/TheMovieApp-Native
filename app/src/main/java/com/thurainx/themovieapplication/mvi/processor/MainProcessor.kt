@@ -19,7 +19,7 @@ object MainProcessor {
             mMovieModel.getPopularMoviesObservable(),
             mMovieModel.getTopRatedMoviesObservable(),
             mMovieModel.getGenresListObservable(),
-            mMovieModel.getActorListObservable()
+            mMovieModel.getActorListObservable(),
         ){ nowPlayingMovieList, popularMovieList, topRatedMovieList, genreList, actorList ->
             return@zip previousState.copy(
                 nowPlayingMovieList = nowPlayingMovieList,
@@ -32,16 +32,18 @@ object MainProcessor {
             )
 
         }
-            .onErrorReturn { throwable ->
-                previousState.copy(
+            .onErrorResumeNext { throwable ->
+                Observable.just(previousState.copy(
                     errorMessage = throwable.localizedMessage ?: "Unknown Observer Error In Processor",
                     nowPlayingMovieList = previousState.nowPlayingMovieList,
                     popularMovieList = previousState.popularMovieList,
                     topRatedMovieList = previousState.topRatedMovieList,
                     genreList = previousState.genreList,
                     actorList = previousState.actorList
-                )
+                ))
+
             }
+            .subscribeOn(Schedulers.io())
             .toFlowable(BackpressureStrategy.BUFFER)
             .toLiveData()
     }
@@ -54,17 +56,19 @@ object MainProcessor {
                 topRatedMovieList = previousState.topRatedMovieList,
                 movieListByGenre = it,
                 genreList = previousState.genreList,
-                actorList = previousState.actorList
+                actorList = previousState.actorList,
+                errorMessage = ""
             ) }
-            ?.onErrorReturn { throwable ->
-                previousState.copy(
+            ?.onErrorResumeNext { throwable ->
+                Observable.just(previousState.copy(
                     errorMessage = throwable.localizedMessage ?: "Unknown Observer Error In Processor",
                     nowPlayingMovieList = previousState.nowPlayingMovieList,
                     popularMovieList = previousState.popularMovieList,
                     topRatedMovieList = previousState.topRatedMovieList,
+                    movieListByGenre = previousState.movieListByGenre,
                     genreList = previousState.genreList,
                     actorList = previousState.actorList
-                )
+                ))
             }
             ?.subscribeOn(Schedulers.io())
             ?.toFlowable(BackpressureStrategy.BUFFER)

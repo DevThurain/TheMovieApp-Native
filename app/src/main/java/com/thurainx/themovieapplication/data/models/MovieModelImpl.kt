@@ -243,35 +243,35 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getGenresListObservable(): Observable<List<GenreVO>>? {
         return mTheMovieApi.getGenresList()
             .map { it.genres ?: listOf() }
-//            .onErrorResumeNext { Observable.just(listOf()) }
-            .onErrorReturn { throwable ->
-                Log.d("observable_error",throwable.localizedMessage ?: "unknown genreList error")
-                listOf()
-            }
+            .onErrorResumeNext { Observable.just(listOf()) }
+//            .onErrorReturn { throwable ->
+//                Log.d("observable_error",throwable.localizedMessage ?: "unknown genreList error")
+//                listOf()
+//            }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getMoviesByGeneresObservable(genreId: String): Observable<List<MovieVO>>? {
         return mTheMovieApi.getMoviesByGenre(genreId = genreId)
             .map { it.results ?: listOf() }
-//            .onErrorResumeNext { Observable.just(listOf()) }
-            .doOnError { throwable ->
-                Log.d("observable_error",throwable.localizedMessage ?: "unknown movieList by genre error")
-            }
+            .onErrorResumeNext { Observable.just(listOf()) }
+//            .onErrorReturn { throwable ->
+//                Log.d("observable_error",throwable.localizedMessage ?: "unknown movieList by genre error")
+//                listOf()
+//            }
             .subscribeOn(Schedulers.io())
     }
 
     override fun getActorListObservable(): Observable<List<ActorVO>>? {
         return mTheMovieApi.getActorList()
             .map { it.results ?: listOf() }
-            .doOnError { throwable ->
-                Log.d("observable_error",throwable.localizedMessage ?: "unknown actorList error")
-            }
+            .onErrorResumeNext { Observable.just(listOf()) }
             .subscribeOn(Schedulers.io())        }
 
     override fun getMovieDetailByIdObservable(id: String): Observable<MovieVO>? {
 
         mTheMovieApi.getMovieById(movie_id = id)
+            .onErrorComplete()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { response ->
@@ -290,6 +290,7 @@ object MovieModelImpl : BasedModel(), MovieModel {
     override fun getCreditByMovieIdObservable(id: String): Observable<Pair<List<ActorVO>, List<ActorVO>>>? {
         return mTheMovieApi.getCreditByMovieId(movieId = id)
             .map { Pair(it.cast ?: listOf(),it.crew ?: listOf()) }
+            .onErrorResumeNext { Observable.just(Pair(listOf(), listOf())) }
             .subscribeOn(Schedulers.io())
     }
 }
